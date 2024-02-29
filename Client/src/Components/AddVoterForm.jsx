@@ -48,7 +48,7 @@ const AddVoterForm = () => {
                 <form onSubmit={(e) => e.preventDefault()} action="">
                     <div>
                         <label htmlFor="">Voter ID</label>
-                        <input ref={id} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='id' />
+                        <input ref={id} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='ID' />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Voter Name</label>
@@ -56,7 +56,7 @@ const AddVoterForm = () => {
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Age</label>
-                        <input ref={Age} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="Number" placeholder='age' />
+                        <input ref={Age} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="Number" placeholder='Age' />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Gender</label>
@@ -68,19 +68,19 @@ const AddVoterForm = () => {
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Ward Number</label>
-                        <input ref={wardNumber} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="number" placeholder='wardNumber' />
+                        <input ref={wardNumber} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="number" placeholder='Ward Number' />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Pincode</label>
-                        <input ref={pincode} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='picode' />
+                        <input ref={pincode} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='Pincode' />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">City</label>
-                        <input ref={district} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='city' />
+                        <input ref={district} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='City' />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">State</label>
-                        <input ref={state} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='state' />
+                        <input ref={state} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='State' />
                     </div>
                     <button onClick={handleVoterData} className='rounded-md border bg-blue-500 px-3 py-1 cursor-pointer w-full mt-3 text-white font-bold '>Add Voter</button>
                 </form>

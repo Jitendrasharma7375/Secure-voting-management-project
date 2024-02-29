@@ -10,7 +10,7 @@ function Navbar() {
 					<ul className='flex ml-4 items-center space-x-4 '>
 						<li>Home</li>
 						<li>Admin Profile</li>
-						<li>Manage Election</li>
+						<Link to={"/ManageElection"}><li>Manage Election</li></Link>
 						<Link to={"/ManageVoter"}><li>Manage Voter</li></Link>
 					</ul>
 				</div>

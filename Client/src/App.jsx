@@ -7,6 +7,10 @@ import ManageElection from './Components/ManageElection'
 import Navbar from './Components/Navbar'
 import AddVoterForm from './Components/AddVoterForm'
 import Voters from './Components/Voters'
+import CreateElection from './Components/CreateElection'
+import UpdateElection from './Components/UpdateElection'
+import DeleteElection from './Components/DeleteElection'
+import SignOut from './Components/Signout'
 
 const App = () => {
   return (
@@ -23,7 +27,7 @@ export const appRouter = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <Home />
       },
       {
@@ -41,12 +45,30 @@ export const appRouter = createBrowserRouter([
         ]
       },
       {
-        path: "/adminProfile",
+        path: "/profile",
         element: <Profile />
       },
       {
         path: "/manageElection",
-        element: <ManageElection />
+        element: <ManageElection />,
+        children: [
+          {
+            path: "/manageElection/createElection",
+            element: <CreateElection />
+          },
+          {
+            path: "/manageElection/updateElection",
+            element: <UpdateElection />
+          },
+          {
+            path: "/manageElection/deleteElection",
+            element: <DeleteElection />
+          }
+        ]
+      },
+      {
+        path:"/signout",
+        element:<SignOut />
       }
     ]
   },

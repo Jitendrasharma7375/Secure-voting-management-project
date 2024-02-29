@@ -5,17 +5,6 @@ function Profile() {
 	const [data, setData] = useState(null);
 	const [open, setOpen] = useState(false);
 
-	useEffect(() => {
-		axios("/user/profile")
-			.then(res => {
-				const { _id, ...d } = res.data;
-				setData(d);
-			})
-			.catch(e => {
-				setData(null);
-			})
-	}, []);
-
 	return (
 		<div className='w-full h-full grid place-content-center place-items-center gap-5' >
 			{

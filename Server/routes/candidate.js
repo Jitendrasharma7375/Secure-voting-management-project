@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('add', verifyAdmin, async (req, res) => {
     try {
-        const { name, party, constituency,age, } = req.body
+        const { name, party, constituency, age, } = req.body
         const newCandidate = new Candidate({
             name,
             party,
@@ -19,10 +19,7 @@ router.post('add', verifyAdmin, async (req, res) => {
     }
 })
 
-// @route   GET api/candidate
-// @desc    Get all candidates
-// @access  Public
-router.get('/', async (req, res) => {
+router.get('/candidates', async (req, res) => {
     try {
         const candidates = await Candidate.find()
         res.status(200).json(candidates)
@@ -31,4 +28,4 @@ router.get('/', async (req, res) => {
     }
 })
 
-export default router;
+export {router as CandidateRouter}

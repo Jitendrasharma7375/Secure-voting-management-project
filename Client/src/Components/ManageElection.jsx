@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
-function ManagePoll() {
 
+function ManageElection() {
+    const [candidateCount, setCandidateCount] = useState()
+    const name = useRef(null)
+    const startDate = useRef(null);
+    const startTiming = useRef(null);
+    const endTiming = useRef(null);
+    const endDate = useRef(null);
     return (
         <div className='w-full h-full px-14 py-6 flex flex-col items-center gap-y-3 bg-blue-100'>
             <form
@@ -22,14 +28,14 @@ function ManagePoll() {
                     type='submit'
                     className='btn-plain bg-blue-600 text-white w-40 h-10 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out'
                 >
-                    Search Poll
+                    Search Election
                 </button>
             </form>
             <span></span>
             <form
                 className='px-10 py-12 bg-white rounded w-96 flex flex-col gap-y-3 items-center'
             >
-                <h1 className='text-3xl text-blue-600' >Manage Poll</h1>
+                <h1 className='text-3xl text-blue-600' >Manage Election</h1>
                 <input
                     className='inp w-full sticky top-1 shadow-lg'
                     type='text'
@@ -75,48 +81,52 @@ function ManagePoll() {
                     //onChange={(e) => { setEndTime(e.target.value) }}
                     />
                 </div>
-                <input
-                    className='inp w-full'
-                    type='text'
-                    name='WhoCan'
-                    placeholder='Who can vote?'
-                //value={whoCan}
-                //onChange={(e) => { setWhoCan(e.target.value.trim()) }}
-                />
-                <input
-                    className='inp w-full'
-                    type='text'
-                    name='Candidates'
-                    placeholder='Enter Candidates'
-                //value={candidates}
-                //onChange={(e) => { setCandidates(e.target.value.trim()) }}
-                />
-
-
+                <div>
+                    <label htmlFor="">How Many Candidates? </label>
+                    <select onChange={(e) => setCandidateCount(e.currentTarget.value)} name="" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                {candidateCount == 1 && <input type="text" name="" id="" />}
+                {candidateCount == 2 && <>
+                    <input className='bg-gray-300' type="text" name="" id="" />
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                </>}
+                {candidateCount == 3 && <div>
+                    <input className='bg-gray-300' type="text" name="" id="" />
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                </div>}
+                {candidateCount == 4 && <>
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                    <input className='bg-gray-300 mt-2' type="text" name="" id="" />
+                </>}
                 <button
                     name='create'
                     type='submit'
                     className='btn'
-                //onClick={handle_create}
                 >
-                    Create Poll
+                    Create Electiion
                 </button>
                 <>
                     <button
                         name='update'
                         type='submit'
                         className='btn-plain text-white bg-green-600'
-                    //onClick={handle_update}
                     >
-                        Update Poll
+                        Update Election
                     </button>
                     <button
                         name='delete'
                         type='submit'
                         className='btn-plain text-white bg-red-600'
-                    //onClick={handle_delete}
                     >
-                        Delete Poll
+                        Delete Election
                     </button>
                 </>
 
@@ -124,7 +134,6 @@ function ManagePoll() {
                     name='cancel'
                     type='submit'
                     className='inp bg-white text-gray-700'
-                //onClick={handle_cancel}
                 >
                     Cancel
                 </button>
@@ -133,4 +142,4 @@ function ManagePoll() {
     );
 }
 
-export default ManagePoll
+export default ManageElection

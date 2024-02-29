@@ -1,49 +1,58 @@
 import express from "express";
 import { Admin } from "../models/Admin.js";
-import { Voter } from "../models/Voter.js";
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-
-const router = express.Router()
+const router = express.Router();
 
 router.post('/signin', async (req, res) => {
     try {
-        const { username, password } = req.body
-        const admin = await Admin.findOne({ username })
-        if (admin) {
-            const comparePassword = await bcrypt.compare(password, admin.password)
-            if (comparePassword) {
-                res.cookie('admin', admin._id, {
-                    httpOnly: true
-                })
-                res.status(200).json({ message: 'Admin signed in' })
-            } else {
-                res.status(400).json({ message: 'Invalid username or password' })
-            }
+        const { Voter_ID, password } = req.body;
+        let admin = await Admin.findOne({ Voter_ID });
+
+        if (!admin) {
+            // If no admin account exists, create one
+            admin = new Admin({
+                Voter_ID: Voter_ID,
+                password: password
+            });
+            await admin.save();
+            console.log('Admin account created');
+        }
+
+        const comparePassword = await compare(password, admin.password);
+        if (comparePassword) {
+            const token = jwt.sign({ Voter_ID: admin.Voter_ID }, process.env.Admin_Key);
+            res.cookie('token', token, { httpOnly: true });
+            res.status(200).json({ message: 'Admin signed in' });
         } else {
-            res.status(400).json({ message: 'Invalid username or password' })
+            res.status(400).json({ message: 'Invalid username or password' });
         }
     } catch (err) {
-        res.status(500).json({ message: 'Internal server error' })
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
     }
-})
+});
+
+
 
 const verifyAdmin = (req, res, next) => {
-    const token = req.cookies.token
+    const token = req.cookies.token;
     if (!token) {
-        return res.json({ message: "Invalid Admin" })
+        return res.status(401).json({ message: "Invalid Admin" });
     } else {
         jwt.verify(token, process.env.Admin_Key, (err, decoded) => {
             if (err) {
-                return res.json({ message: "Invalid Token" })
+                return res.status(401).json({ message: "Invalid Token" });
             } else {
-                req.username = decoded.username;
-                req.role = decoded.role;
-                next()
+                req.Voter_ID = decoded.Voter_ID;
+                next();
             }
-        })
+        });
     }
-}
+};
 
-export { router as AdminRouter, verifyAdmin }
+router.get('/signout', (req, res) => {
+    res.clearCookie('token');
+    res.json({ logout: true });
+});
 
+export { router as AdminRouter, verifyAdmin };

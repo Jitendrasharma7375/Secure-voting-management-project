@@ -1,18 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Navbar({ }) {
-
+function Navbar() {
 	return (
-		<nav className='w-full px-4 py-2 bg-blue-500 text-white flex place-items-center gap-x-6 sticky top-0 shadow-md'>
-			<span className='text-2xl'>EMS</span>
-			<Link className='hover:text-black' to="/"> Home </Link>
-			<Link className='hover:text-black' to="/profile"> Profile </Link>
-			<Link className='hover:text-black' to="/manage-poll"> Manage&nbsp;Poll </Link>
-			<Link className='hover:text-black' to="/manage-user"> Manage&nbsp;User </Link>
-			<div className='w-full'></div>
-			<button > Signout </button>
-		</nav>
+		<>
+			<nav className='bg-blue-500 fixed w-full flex items-center min-h-[8vh] px-5 justify-between'>
+				<div className="left flex text-white">
+					<div className="logo font-bold text-2xl">CMS</div>
+					<ul className='flex ml-4 items-center space-x-4 '>
+						<li>Home</li>
+						<li>Admin Profile</li>
+						<li>Manage Election</li>
+						<Link to={"/ManageVoter"}><li>Manage Voter</li></Link>
+					</ul>
+				</div>
+				<button>Sign Out</button>
+			</nav>
+		</>
 	)
 }
 

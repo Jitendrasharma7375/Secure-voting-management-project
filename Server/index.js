@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import './db.js'
 import { AdminRouter } from "./routes/auth.js";
+import { CandidateRouter } from "./routes/candidate.js";
 
 //Routes
 const app = express()
@@ -18,9 +19,14 @@ app.use(cors(
 app.use(cookieParser())
 dotenv.config()
 app.use('/auth', AdminRouter)
+app.use('/candidate', CandidateRouter)
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`)
-})
+
+const PORT = process.env.PORT || 3000; // Fallback to port 3000 if process.env.PORT is not defined
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
 
 

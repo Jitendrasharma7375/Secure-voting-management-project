@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 function ManageElection() {
-
+   
     return (
         <>
             <div className="py-5 min-h-[100vh] h-auto">

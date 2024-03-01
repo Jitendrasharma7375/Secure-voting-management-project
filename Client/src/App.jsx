@@ -58,25 +58,25 @@ export const appRouter = createBrowserRouter([
             element: <CreateElection />
           },
           {
-            path: "updateElection",
+            path: "updateElection", // Corrected path
             element: <UpdateElection />
           },
           {
-            path: "updateElection/:id",
+            path: "/manageElection/updateElection/:id", // Corrected path
             element: <UpdateElection />
           },
           {
-            path: "deleteElection",
+            path: "/manageElection/deleteElection",
             element: <DeleteElection />
           }
         ]
       },
       {
-        path: "Signout",
+        path: "/Signout",
         element: <Signin />
       },
       {
-        path: "Signin",
+        path: "/Signin",
         element: <Signin />
       }
     ]

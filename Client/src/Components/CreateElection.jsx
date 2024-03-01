@@ -12,7 +12,7 @@ function CreateElection() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/ManageElection/createElection", {
+            const response = await axios.post("http://localhost:3000/ElectionRoutes/createElection", {
                 electionId,
                 electionName,
                 startDate,
@@ -20,7 +20,8 @@ function CreateElection() {
             });
     
             if (response.data.added) {
-                toast.success('Election created successfully!'); 
+                toast.success('Election created successfully!');
+                console.log('Election created successfully!'); 
                 setTimeout(() => {
                     window.location.href = "/ManageElection";
                 }, 1000);

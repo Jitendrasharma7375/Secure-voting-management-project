@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import './db.js'
-import { AdminRouter } from "./routes/auth.js";
-import { CandidateRouter } from "./routes/candidate.js";
+import { ElectionRouter } from "./routes/ElectionRoutes.js";
 
 //Routes
 const app = express()
@@ -18,15 +17,10 @@ app.use(cors(
 
 app.use(cookieParser())
 dotenv.config()
-app.use('/auth', AdminRouter)
-app.use('/candidate', CandidateRouter)
+app.use('/ElectionRoutes', ElectionRouter);
 
 
-const PORT = process.env.PORT || 3000; // Fallback to port 3000 if process.env.PORT is not defined
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-
-

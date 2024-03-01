@@ -2,12 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 function ManageElection() {
-    const [candidateCount, setCandidateCount] = useState()
-    const name = useRef(null)
-    const startDate = useRef(null);
-    const startTiming = useRef(null);
-    const endTiming = useRef(null);
-    const endDate = useRef(null);
+
     return (
         <>
             <div className="py-5 min-h-[100vh] h-auto">

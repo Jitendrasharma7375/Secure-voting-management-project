@@ -1,16 +1,17 @@
-import React from 'react'
-import { Outlet, createBrowserRouter } from 'react-router-dom'
-import Home from './Components/Home'
-import ManageCandidate from './Components/ManageCandidate'
-import Profile from './Components/Profile'
-import ManageElection from './Components/ManageElection'
-import Navbar from './Components/Navbar'
-import AddVoterForm from './Components/AddVoterForm'
-import Voters from './Components/Voters'
-import CreateElection from './Components/CreateElection'
-import UpdateElection from './Components/UpdateElection'
-import DeleteElection from './Components/DeleteElection'
-import SignOut from './Components/Signout'
+import React from 'react';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
+import Home from './Components/Home';
+import ManageCandidate from './Components/ManageCandidate';
+import Profile from './Components/Profile';
+import ManageElection from './Components/ManageElection';
+import Navbar from './Components/Navbar';
+import AddVoterForm from './Components/AddVoterForm';
+import Voters from './Components/Voters';
+import CreateElection from './Components/CreateElection';
+import UpdateElection from './Components/UpdateElection';
+import DeleteElection from './Components/DeleteElection';
+import SignOut from './Components/Signout';
+import Signin from './Components/Signin';
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
       <Navbar />
       <Outlet />
     </div>
-  )
+  );
 }
 
 export const appRouter = createBrowserRouter([
@@ -53,26 +54,33 @@ export const appRouter = createBrowserRouter([
         element: <ManageElection />,
         children: [
           {
-            path: "/manageElection/createElection",
+            path: "createElection",
             element: <CreateElection />
           },
           {
-            path: "/manageElection/updateElection",
+            path: "updateElection",
             element: <UpdateElection />
           },
           {
-            path: "/manageElection/deleteElection",
+            path: "updateElection/:id",
+            element: <UpdateElection />
+          },
+          {
+            path: "deleteElection",
             element: <DeleteElection />
           }
         ]
       },
       {
-        path:"/signout",
-        element:<SignOut />
+        path: "Signout",
+        element: <Signin />
+      },
+      {
+        path: "Signin",
+        element: <Signin />
       }
     ]
   },
+]);
 
-])
-
-export default App
+export default App;

@@ -6,7 +6,7 @@ function Navbar() {
 
 	return (
 		<>
-			<nav className='bg-blue-500 fixed w-full flex items-center min-h-[8vh] px-5 justify-between'>
+			<nav className='bg-blue-500 top-0 fixed w-full flex items-center min-h-[8vh] px-5 justify-between'>
 				<div className="left flex text-white">
 					<div className="logo font-bold text-2xl">SVMS</div>
 					<ul className='flex ml-4 items-center space-x-4 '>
@@ -16,7 +16,7 @@ function Navbar() {
 						<Link to={"/ManageVoter"}><li>Manage Voter</li></Link>
 					</ul>
 				</div>
-				<Link to={"/Signout"}><button className='text-white'>Sign Out</button></Link>
+				<Link to={"/Signin"}><button className='text-white'>Sign Out</button></Link>
 			</nav>
 		</>
 	)

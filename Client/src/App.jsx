@@ -34,6 +34,7 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: "/",
+        path: "/signin",
         element: <Signin />
       },
       {

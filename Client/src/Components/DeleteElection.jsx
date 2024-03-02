@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 function DeleteElection() {
   const { id } = useParams();
@@ -30,7 +31,9 @@ function DeleteElection() {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-gray-100">
+    <>
+    <Navbar />
+     <div className="w-full h-full flex justify-center items-center bg-gray-100">
       <div className="bg-white rounded shadow-md p-8">
         <h2 className="text-2xl font-bold mb-4">Delete Election</h2>
         <p>Are you sure you want to delete this election?</p>
@@ -41,6 +44,7 @@ function DeleteElection() {
       </div>
       <ToastContainer />
     </div>
+    </>
   );
 }
 

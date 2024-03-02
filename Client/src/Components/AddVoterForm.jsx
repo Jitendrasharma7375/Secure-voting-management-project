@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../constant/firebase';
-
+import Navbar from './Navbar';
 
 const AddVoterForm = () => {
     const id = useRef(null);
@@ -43,6 +43,7 @@ const AddVoterForm = () => {
 
     return (
         <>
+            <Navbar />
             <ToastContainer />
             <div className=' w-[50%] mx-auto'>
                 <form onSubmit={(e) => e.preventDefault()} action="">

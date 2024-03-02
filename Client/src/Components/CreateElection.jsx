@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'; // Don't forget to import axios
+import addelecCandidate from './AddElecCandidate';
+import Navbar from './Navbar';
 
 function CreateElection() {
     const [electionId, setElectionId] = useState('');
@@ -22,8 +24,9 @@ function CreateElection() {
             if (response.data.added) {
                 toast.success('Election created successfully!');
                 console.log('Election created successfully!'); 
+
                 setTimeout(() => {
-                    window.location.href = "/ManageElection";
+                    window.location.href = "/addCandidates";
                 }, 1000);
             } else {
                 console.log(response);
@@ -35,6 +38,7 @@ function CreateElection() {
     };
     return (
         <>
+            <Navbar />
             <ToastContainer />
             <div className="w-full h-full flex justify-center items-center bg-gray-100">
                 <div className="bg-white rounded shadow-md p-8">

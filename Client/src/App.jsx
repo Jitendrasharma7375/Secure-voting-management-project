@@ -12,13 +12,15 @@ import UpdateElection from './Components/UpdateElection';
 import DeleteElection from './Components/DeleteElection';
 import Signin from './Components/Signin';
 import GiveVote from './Components/GiveVote';
+import addelecCandidate from './Components/AddElecCandidate';
+
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
     <div>
-      <Navbar />
+     
       <Outlet />
     </div>
   );
@@ -65,7 +67,12 @@ export const appRouter = createBrowserRouter([
         children: [
           {
             path: "createElection",
-            element: <CreateElection />
+            element: <CreateElection />,
+            children:[{
+              path: "/manageElection/createElection/addCandidates",
+              element: <addelecCandidate/>
+            
+            }]
           },
           {
             path: "updateElection", // Corrected path

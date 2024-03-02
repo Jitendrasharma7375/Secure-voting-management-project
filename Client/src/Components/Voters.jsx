@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { details, } from '../constant/constant';
 import { collection, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../constant/firebase';
+import Navbar from './Navbar';
 
 const Voters = () => {
     const [voterData, setVoterData] = useState([]);
@@ -18,6 +19,7 @@ const Voters = () => {
     }
     return (
         <>
+            <Navbar />
             <div className='flex mt-10 cursor-pointer justify-between px-5  transition-all duration-100 delay-100 bg-black text-white  w-[70%] py-2  rounded-md mx-auto shadow-lg'>
                 {details.map((items) => {
                     const { id, VoterName, Age, gender, WardNumber, pincode, District, State } = items;

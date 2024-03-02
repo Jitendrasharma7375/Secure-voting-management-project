@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Navbar from './Navbar';
 function GiveVote() {
     const [selectedElection, setSelectedElection] = useState('');
     const [selectedCandidate, setSelectedCandidate] = useState('');
@@ -39,6 +39,8 @@ function GiveVote() {
     };
 
     return (
+        <>
+        <Navbar />
         <div className="min-h-screen bg-gray-100 flex justify-center items-center">
             <div className="bg-white shadow-md rounded-md p-6">
                 <h1 className="text-2xl font-bold mb-4">Give Vote</h1>
@@ -83,6 +85,7 @@ function GiveVote() {
                 </button>
             </div>
         </div>
+        </>
     );
 }
 

@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import Navbar from './Navbar'
 
 const ManageCandidate = () => {
 	return (
 		<>
+		<Navbar />
 			<div className="py-5 min-h-[100vh] h-auto">
 				<div className="flex items-center justify-center mt-[60px] space-x-3">
 					<Link to={"/manageVoter/AllVoters"}>

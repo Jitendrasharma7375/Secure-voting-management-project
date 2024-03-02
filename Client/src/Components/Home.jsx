@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "./Navbar";
 
 function Home() {
   // Sample data for recent, running, and upcoming elections
@@ -22,6 +23,7 @@ function Home() {
 
   return (
     <>
+    <Navbar />
       <div className="container mx-auto mt-8 w-full h-full ">
         <h1 className="text-3xl font-semibold mb-4">Home Page</h1>
 

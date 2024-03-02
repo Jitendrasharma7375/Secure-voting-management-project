@@ -1,6 +1,6 @@
 import React from 'react'
-
-const A = () => {
+import Navbar from './Navbar';
+const addelecCandidate = () => {
     const [numCandidates, setNumCandidates] = useState(1);
     const [candidates, setCandidates] = useState([]);
 
@@ -18,6 +18,8 @@ const A = () => {
         }
     };
     return (
+        <>
+         <Navbar />
         <div>
             <form action="">
                 <div className="flex flex-col">
@@ -100,7 +102,8 @@ const A = () => {
                 <button type="button" onClick={handleAddCandidate} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Add Candidate</button>
             </form>
         </div>
+        </>
     )
 }
 
-export default A
+export default addelecCandidate

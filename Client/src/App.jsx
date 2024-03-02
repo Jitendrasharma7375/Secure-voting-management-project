@@ -11,6 +11,8 @@ import DeleteElection from './Components/DeleteElection';
 import Signin from './Components/Signin';
 import GiveVote from './Components/GiveVote';
 import AddCandidate from './Components/AddCandidate';
+import VoterNavbar from './Components/VoterNavbar';
+import VoterHome from './Components/VoterHome';
 
 
 const App = () => {
@@ -66,11 +68,11 @@ export const appRouter = createBrowserRouter([
             element: <CreateElection />,
           },
           {
-            path: "updateElection", // Corrected path
+            path: "updateElection",
             element: <UpdateElection />
           },
           {
-            path: "/manageElection/updateElection/:id", // Corrected path
+            path: "/manageElection/updateElection/:id",
             element: <UpdateElection />
           },
           {
@@ -82,6 +84,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/signout",
         element: <Signin />
+      },
+      {
+        path:"/voterhome",
+        element:<VoterHome/>
       },
       {
         path:"/addCandidate",

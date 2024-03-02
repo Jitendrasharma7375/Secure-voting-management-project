@@ -3,7 +3,6 @@ import { Election } from "../models/Election.js";
 
 const router = express.Router();
 
-
 router.post('/createElection', async (req, res) => {
     try {
         const { electionId, electionName, startDate, endDate } = req.body;
@@ -20,65 +19,33 @@ router.post('/createElection', async (req, res) => {
     }
 });
 
-
-router.get('/updateElection/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const upElection = await Election.findById({ _id: id })
-        return res.json(upElection)
-    } catch (err) {
-        return res.json(err)
-    }
+router.get("/getElectionDetails", (req, res) => {
+    Election.find()
+        .then(ElectionDetails => res.json(ElectionDetails))
+        .catch(res => res.json({ err }))
 })
 
-
-router.patch('updateElection/:id', async (req, res) => {
+router.put('/updateElection', async (req, res) => {
     try {
-        const id = req.params.id;
         const { electionId, electionName, startDate, endDate } = req.body;
-        const upElection = await Election.findByIdAndUpdate({ _id: id }, { electionId, electionName, startDate, endDate })
-        if (upElection) {
-            return res.json({ updated: true, manageElection: upElection })
-        }
-        else {
-            return res.json({ updated: false, message: "Election not found" })
-        }
-    } catch (err) {
-        return res.json(err)
-    }
-})
-
-// Route for getting all elections
-router.get('/getAllElections', async (req, res) => {
-    try {
-        const elections = await Election.find();
-        res.status(200).json(elections);
-    } catch (error) {
-        console.error('Error fetching elections:', error);
-        res.status(500).json({ message: 'Failed to fetch elections. Please try again later.' });
-    }
-});
-
-
-// Route for updating an existing election
-router.put('/updateElection/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { electionId, electionName, startDate, endDate } = req.body;
-
-        // Find the election by ID and update its fields
-        const updatedElection = await Election.findByIdAndUpdate(id, {
-            electionId,
+        const updatedElection = await Election.findOneAndUpdate({ electionId }, {
             electionName,
             startDate,
             endDate
-        }, { new: true });
-
-        res.status(200).json({ message: 'Election updated successfully', updatedElection });
-    } catch (error) {
-        console.error('Error updating election:', error);
-        res.status(500).json({ message: 'Failed to update election. Please try again later.' });
+        });
+        if(updatedElection)
+        {
+            return res.json({ message: "Election updated successfully" })
+        }
+        else
+        {
+            return res.json({ message: "Election not found" })
+        }
+    } catch (err) {
+        return res.json({ error: err.message })
     }
 });
+
+
 
 export { router as ElectionRouter };

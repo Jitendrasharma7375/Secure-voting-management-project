@@ -5,14 +5,6 @@ import axios from 'axios'
 
 
 function Navbar() {
-	const [elections, setElection] = useState([]);
-
-	useEffect(() => {
-		axios.get("http://localhost:3000/ElectionRoutes/updateElection/:id")
-			.then((res) => {
-				setElection(res.data.elections);
-			}).catch((err) => console.log(err));
-	}, []);
 
 	return (
 		<>
@@ -21,7 +13,7 @@ function Navbar() {
 					<div className="logo font-bold text-2xl">SVMS</div>
 					<ul className='flex ml-4 items-center space-x-4 mt-2 no-underlin'>
 						<Link to={"/Home"}><li className='text-white '>Home</li></Link >
-						<Link to={{ pathname: "/ManageElection", state: { elections: elections } }}><li className='text-white'>Manage Election</li></Link>
+						<Link to={"/ManageElection"}><li className='text-white'>Manage Election</li></Link>
 						<Link to={"/ManageVoter"}><li className='text-white'>Manage Voter</li></Link>
 						<Link to={"/givevote"}><li className='text-white'>Give Vote</li></Link>
 					</ul>

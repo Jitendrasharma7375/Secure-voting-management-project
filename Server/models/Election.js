@@ -7,6 +7,6 @@ const electionSchema = new mongoose.Schema({
     endDate: Date
 });
 
-const Election = mongoose.model('Election', electionSchema);
+const ElectionSchema = mongoose.model('Election', electionSchema);
 
-export { Election };
+export {ElectionSchema as Election };

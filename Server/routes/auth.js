@@ -1,7 +1,6 @@
 import express from "express";
 import { Admin } from "../models/Admin.js";
 
-
 const router = express.Router();
 
 router.post('/signin', async (req, res) => {

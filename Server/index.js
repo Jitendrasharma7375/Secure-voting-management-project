@@ -18,8 +18,8 @@ app.use(cors(
 
 app.use(cookieParser())
 dotenv.config()
-app.use('/ElectionRoutes', ElectionRouter);
 app.use('/auth', AdminRouter);
+app.use('/ElectionRoutes', ElectionRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);

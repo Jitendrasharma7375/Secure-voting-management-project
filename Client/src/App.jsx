@@ -1,8 +1,8 @@
 import React from 'react';
+import { useState } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 import Home from './Components/Home';
 import ManageCandidate from './Components/ManageCandidate';
-import Profile from './Components/Profile';
 import ManageElection from './Components/ManageElection';
 import Navbar from './Components/Navbar';
 import AddVoterForm from './Components/AddVoterForm';
@@ -10,11 +10,12 @@ import Voters from './Components/Voters';
 import CreateElection from './Components/CreateElection';
 import UpdateElection from './Components/UpdateElection';
 import DeleteElection from './Components/DeleteElection';
-import SignOut from './Components/Signout';
 import Signin from './Components/Signin';
 import GiveVote from './Components/GiveVote';
 
 const App = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
   return (
     <div>
       <Navbar />
@@ -34,6 +35,9 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: "/",
+        element: <Signin />
+      },
+      {
         path: "/signin",
         element: <Signin />
       },
@@ -54,10 +58,6 @@ export const appRouter = createBrowserRouter([
             element: <Voters />
           }
         ]
-      },
-      {
-        path: "/profile",
-        element: <Profile />
       },
       {
         path: "/manageElection",

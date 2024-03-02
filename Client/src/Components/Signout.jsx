@@ -5,10 +5,6 @@ const SignOut = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    // Perform sign-out logic (clear authentication state, etc.)
-    // For example, you can clear user session or token here
-
-    // After sign-out, redirect to the sign-in page
     navigate('/signin');
   };
 

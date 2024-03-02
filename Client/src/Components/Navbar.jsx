@@ -21,7 +21,6 @@ function Navbar() {
 					<div className="logo font-bold text-2xl">SVMS</div>
 					<ul className='flex ml-4 items-center space-x-4 mt-2 no-underlin'>
 						<Link to={"/Home"}><li className='text-white '>Home</li></Link >
-						<Link to={"/Profile"}><li className='text-white'>Admin Profile</li></Link>
 						<Link to={{ pathname: "/ManageElection", state: { elections: elections } }}><li className='text-white'>Manage Election</li></Link>
 						<Link to={"/ManageVoter"}><li className='text-white'>Manage Voter</li></Link>
 						<Link to={"/givevote"}><li className='text-white'>Give Vote</li></Link>

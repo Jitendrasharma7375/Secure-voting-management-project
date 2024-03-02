@@ -29,7 +29,7 @@ function CreateElection() {
                 console.log(response);
             }
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error submitting form:', error); 
             toast.error('An error occurred while submitting the form.');
         }
     };

@@ -45,6 +45,22 @@ router.put('/updateElection', async (req, res) => {
         return res.json({ error: err.message })
     }
 });
+ 
+
+router.delete('/deleteElection/:electionId', async (req, res) => {
+    try {
+        
+        const { electionId } = req.params;
+        const deletedElection = await Election.findOneAndDelete({ electionId });
+        if(deletedElection) {
+            return res.json({ message: "Election deleted successfully" });
+        } else {
+            return res.json({ message: "Election not found" });
+        }
+    } catch (err) {
+        return res.json({ error: err.message });
+    }
+});
 
 
 

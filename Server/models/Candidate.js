@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const candidateSchema = new mongoose.Schema({
+    totalCandidate: Number,
     name: String,
     party: String,
     age: Number,
@@ -8,5 +9,5 @@ const candidateSchema = new mongoose.Schema({
     state: String
 });
 
-const Candidate = mongoose.model('Candidate', candidateSchema);
-export { Candidate }
+const CandidateSchema = mongoose.model('Candidate', candidateSchema);
+export { CandidateSchema as Candidate }

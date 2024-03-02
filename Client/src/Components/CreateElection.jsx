@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'; // Don't forget to import axios
-import addelecCandidate from './AddElecCandidate';
+import AddCandidate from './AddCandidate';
 import Navbar from './Navbar';
 
 function CreateElection() {
@@ -20,19 +20,17 @@ function CreateElection() {
                 startDate,
                 endDate
             });
-    
             if (response.data.added) {
                 toast.success('Election created successfully!');
-                console.log('Election created successfully!'); 
-
+                console.log('Election created successfully!');
                 setTimeout(() => {
-                    window.location.href = "/addCandidates";
+                    window.location.href = "/addCandidate";
                 }, 1000);
             } else {
                 console.log(response);
             }
         } catch (error) {
-            console.error('Error submitting form:', error); 
+            console.error('Error submitting form:', error);
             toast.error('An error occurred while submitting the form.');
         }
     };

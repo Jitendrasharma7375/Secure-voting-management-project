@@ -1,10 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 import Home from './Components/Home';
 import ManageCandidate from './Components/ManageCandidate';
 import ManageElection from './Components/ManageElection';
-import Navbar from './Components/Navbar';
 import AddVoterForm from './Components/AddVoterForm';
 import Voters from './Components/Voters';
 import CreateElection from './Components/CreateElection';
@@ -12,15 +10,13 @@ import UpdateElection from './Components/UpdateElection';
 import DeleteElection from './Components/DeleteElection';
 import Signin from './Components/Signin';
 import GiveVote from './Components/GiveVote';
-import addelecCandidate from './Components/AddElecCandidate';
+import AddCandidate from './Components/AddCandidate';
 
 
 const App = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
     <div>
-     
       <Outlet />
     </div>
   );
@@ -68,11 +64,6 @@ export const appRouter = createBrowserRouter([
           {
             path: "createElection",
             element: <CreateElection />,
-            children:[{
-              path: "/manageElection/createElection/addCandidates",
-              element: <addelecCandidate/>
-            
-            }]
           },
           {
             path: "updateElection", // Corrected path
@@ -85,14 +76,17 @@ export const appRouter = createBrowserRouter([
           {
             path: "/manageElection/deleteElection",
             element: <DeleteElection />
-          }
+          },
         ]
       },
       {
         path: "/signout",
         element: <Signin />
       },
-
+      {
+        path:"/addCandidate",
+        element:<AddCandidate/>
+      }
     ]
   },
 ]);

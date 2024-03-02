@@ -30,7 +30,7 @@ const AddCandidate = () => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:3000/candidateRoutes/createCandidate", {
-                totalCandidate,
+                numCandidates,
                 name,
                 party,
                 age,

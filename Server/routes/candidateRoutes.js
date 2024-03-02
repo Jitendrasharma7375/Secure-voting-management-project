@@ -21,4 +21,10 @@ router.post('/createCandidate', async (req, res) => {
     }
 });
 
+router.get("/getCandidateDetails", (req, res) => {
+    Candidate.find()
+        .then(CandidateDetails => res.json(CandidateDetails))
+        .catch(res => res.json({ err }))
+})
+
 export {router as CandidateRouter};

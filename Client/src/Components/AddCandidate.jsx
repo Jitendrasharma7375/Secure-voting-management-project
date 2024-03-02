@@ -30,7 +30,7 @@ const AddCandidate = () => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:3000/candidateRoutes/createCandidate", {
-                numCandidates,
+                totalCandidate,
                 name,
                 party,
                 age,
@@ -41,7 +41,6 @@ const AddCandidate = () => {
                 toast.success('Candidate Added successfully!');
                 console.log('Candidate Added successfully!')
                 console.log(response)
-                e.preventDefault
                 setTimeout(() => {
                     window.location.href = "/manageElection";
                 }, 1000);

@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 function Signin() {
   const [Voter_ID, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('voter'); // Default role is 'voter'
+  const [role, setRole] = useState('voter');
   const navigateTo = useNavigate();
 
   const handleSubmit = async (e) => {

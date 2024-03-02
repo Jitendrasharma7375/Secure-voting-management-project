@@ -25,6 +25,7 @@ router.get("/getElectionDetails", (req, res) => {
         .catch(res => res.json({ err }))
 })
 
+
 router.put('/updateElection', async (req, res) => {
     try {
         const { electionId, electionName, startDate, endDate } = req.body;
@@ -33,26 +34,24 @@ router.put('/updateElection', async (req, res) => {
             startDate,
             endDate
         });
-        if(updatedElection)
-        {
+        if (updatedElection) {
             return res.json({ message: "Election updated successfully" })
         }
-        else
-        {
+        else {
             return res.json({ message: "Election not found" })
         }
     } catch (err) {
         return res.json({ error: err.message })
     }
 });
- 
+
 
 router.delete('/deleteElection/:electionId', async (req, res) => {
     try {
-        
+
         const { electionId } = req.params;
         const deletedElection = await Election.findOneAndDelete({ electionId });
-        if(deletedElection) {
+        if (deletedElection) {
             return res.json({ message: "Election deleted successfully" });
         } else {
             return res.json({ message: "Election not found" });

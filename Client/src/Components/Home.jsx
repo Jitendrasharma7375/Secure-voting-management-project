@@ -23,8 +23,8 @@ function Home() {
 
   return (
     <>
-    <Navbar />
-      <div className="container mx-auto mt-8 w-full h-full ">
+      <Navbar />
+      <div className="container mx-auto mt-14 w-full h-full ">
         <h1 className="text-3xl font-semibold mb-4">Home Page</h1>
 
         <div className="mb-8">

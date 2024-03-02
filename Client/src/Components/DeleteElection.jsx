@@ -19,8 +19,7 @@ function DeleteElection() {
 
         // Redirect or update the UI as needed
       } else {
-        console.log(response);
-        toast.error("Failed to delete election.");
+        toast.error(response.data.message || "An error occurred while deleting the election.");
       }
     } catch (error) {
       console.error("Error deleting election:", error);

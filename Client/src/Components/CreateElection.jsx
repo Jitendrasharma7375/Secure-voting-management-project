@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'; // Don't forget to import axios
-import AddCandidate from './AddCandidate';
 import Navbar from './Navbar';
 
 function CreateElection() {

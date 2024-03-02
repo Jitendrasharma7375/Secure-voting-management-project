@@ -8,9 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 axios.defaults.withCredentials = true;
 
 function Signin() {
-  const [Voter_ID, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('voter'); // Default role is 'voter'
+  const [vote, setVoter] = useState(null); // State variable for storing voter details
+  const [Voter_ID, setVoterID] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("voter"); // Default role is 'voter'
   const navigateTo = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -40,6 +41,7 @@ function Signin() {
         setTimeout(() => {
           if (role === "admin") {
             navigateTo("/home");
+            setVoter(result.data.voter);
           } else {
             // Assuming "voter" role
             navigateTo("/voterhome");

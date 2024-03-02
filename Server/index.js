@@ -8,6 +8,7 @@ import { AdminRouter } from "./routes/auth.js";
 import { CandidateRouter } from "./routes/candidateRoutes.js";
 import { VoteRouter } from "./routes/voteRoutes.js";
 import { VoterInsertRouter } from "./routes/voterInsertRoutes.js";
+import {VoterRouter} from "./routes/voterAuth.js";
 //Routes
 const app = express();
 app.use(express.json());
@@ -21,10 +22,12 @@ app.use(
 app.use(cookieParser())
 dotenv.config()
 app.use('/auth', AdminRouter);
+app.use('/voterAuth', VoterRouter);
 app.use('/electionRoutes', ElectionRouter);
 app.use('/candidateRoutes', CandidateRouter);
 app.use('/voteRoutes', VoteRouter);
 app.use('/voterInsertRoutes', VoterInsertRouter);
+
 
 app.use((err, req, res, next) => {
   console.error(err);

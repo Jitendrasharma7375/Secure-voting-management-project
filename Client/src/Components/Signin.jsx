@@ -10,20 +10,21 @@ axios.defaults.withCredentials = true;
 function Signin() {
   const [Voter_ID, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('voter'); // Default role is 'voter'
   const navigateTo = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const result = await axios.post("http://localhost:3000/auth/signin", { Voter_ID, password });
+      const result = await axios.post("http://localhost:3000/auth/signin", { Voter_ID, password, role }); // Include role in the request body
       console.log(result);
 
       if (result.data.message === "Login Success") {
         toast.success("Login Success");
         setTimeout(() => {
           navigateTo("/home");
-      }, 1000);
+        }, 1000);
       } else if (result.data.message === "User not found" || result.data.message === "Wrong Password") {
         toast.error(result.data.message);
       }
@@ -40,17 +41,21 @@ function Signin() {
           <div className="form-group">
             <label htmlFor="exampleInputEmail1" className="p-2">Email address</label>
             <input type="name" className="form-control p-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name='email' onChange={(e) => setEmail(e.target.value)} />
-            <small id="emailHelp" className="form-text text-muted p-2">We'll never share your email with anyone else.</small>
+            <small id="emailHelp" className="fo
+            }rm-text text-muted p-2">We'll never share your email with anyone else.</small>
           </div>
           <div className="form-group">
             <label htmlFor="exampleInputPassword1" className="p-2">Password</label>
             <input type="password" className="form-control p-2" id="exampleInputPassword1" placeholder="Password" name='password' onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <div className="form-group form-check">
-            <input type="checkbox" className="form-check-inputp-2" id="exampleCheck1" />
-            <label className="form-check-label p-2" htmlFor="exampleCheck1">Check me out</label>
+          <div className="form-group">
+            <label htmlFor="role" className="p-2">Role</label>
+            <select id="role" className="form-control p-2" value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="voter">Voter</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
-          <button type="submit" className="btn btn-primary p-2" onClick={handleSubmit}>Submit</button>
+          <button type="submit" className="btn btn-primary p-2 mt-2" onClick={handleSubmit}>Submit</button>
         </form>
       </div>
     </>

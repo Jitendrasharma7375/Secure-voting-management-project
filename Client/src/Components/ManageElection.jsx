@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 function ManageElection() {
-   
+
     return (
         <>
             <div className="py-5 min-h-[100vh] h-auto">
@@ -10,7 +10,7 @@ function ManageElection() {
                     <Link to={"/manageElection/createElection"}>
                         <button className='border bg-blue-500 text-white font-semibold px-3 py-1 cursor-pointer rounded-md'>Create Election</button>
                     </Link>
-                    <Link to={"/manageElection/updateElection"}>
+                    <Link to={`/manageElection/updateElection`}>
                         <button className='border bg-blue-500 text-white font-semibold px-3 py-1 cursor-pointer rounded-md'>Update Election</button>
                     </Link>
                     <Link to={"/manageElection/deleteElection"}>

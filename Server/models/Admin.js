@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 const adminSchema = new mongoose.Schema({
-    Voter_ID: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    Voter_ID: String,
+    password: String
 });
 
-const adminModel = mongoose.model('Admin', adminSchema);
+const adminModel = mongoose.model('admins', adminSchema);
 
 export { adminModel as Admin };

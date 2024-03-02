@@ -1,48 +1,50 @@
-import { useState } from "react"
-import { adminAccount } from "../../../Server/seed";
+import React, { useState } from "react";
+import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+
+axios.defaults.withCredentials = true;
 
 function Signin() {
-    const [voterID, setVoterID] = useState('');
-    const [password, setPassword] = useState('');
+  const [Voter_ID, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigateTo = useNavigate();
 
-    const handleSignin = () => {
-        adminAccount(voterID, password)
+  axios.defaults.withCredentials = true;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+  
+    try {
+      const result = await axios.post("http://localhost:3000/auth/signin", { Voter_ID, password });
+      console.log(result);
+      
+      if (result.data.message === "Login Success") {
+        navigateTo("/home");
+      }
+    } catch (error) {
+      console.log(error);
     }
-    return (
-        <div className='w-full h-screen min-h-fit p-10 bg-blue-100 grid place-items-center'>
-            <form
-                className='px-10 py-12 bg-white rounded w-80 flex flex-col gap-y-5 items-center'
-                onSubmit={(e) => e.preventDefault()}
-                method='POST'
-            >
-                <h1 className='text-3xl text-blue-600' >SignIn</h1>
-                <input
-                    className='inp w-72 sticky top-1 shadow-lg'
-                    type={'text'}
-                    name='Voter ID'
-                    placeholder='Voter ID'
-                    value={voterID}
-                    onChange={(e) => setVoterID(e.currentTarget.value)}
-                />
-                <input
-                    className='inp w-72 sticky top-1 shadow-lg'
-                    type={'password'}
-                    name='password'
-                    placeholder='Password'
-                    value={password}
-                    onChange={(e) => setPassword(e.currentTarget.value)}
-                />
-                <button
-                    onClick={handleSignin}
-                    name='submit'
-                    type='submit'
-                    className='btn bg-blue-600 text-white w-40 h-10 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out'
-                >
-                    Signin
-                </button>
-            </form>
-        </div>
-    )
+  };
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="exampleInputEmail1">Email address</label>
+        <input type="name" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name='email' onChange={(e) => setEmail(e.target.value)} />
+        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div className="form-group">
+        <label htmlFor="exampleInputPassword1">Password</label>
+        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" name='password' onChange={(e) => setPassword(e.target.value)} />
+      </div>
+      <div className="form-group form-check">
+        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+    </form>
+  );
 }
 
-export default Signin
+export default Signin;

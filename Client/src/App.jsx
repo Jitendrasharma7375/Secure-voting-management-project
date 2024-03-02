@@ -12,6 +12,7 @@ import UpdateElection from './Components/UpdateElection';
 import DeleteElection from './Components/DeleteElection';
 import SignOut from './Components/Signout';
 import Signin from './Components/Signin';
+import GiveVote from './Components/GiveVote';
 
 const App = () => {
   return (
@@ -30,6 +31,14 @@ export const appRouter = createBrowserRouter([
       {
         path: "/home",
         element: <Home />
+      },
+      {
+        path: "/",
+        element: <Signin />
+      },
+      {
+        path: "/givevote",
+        element: <GiveVote />
       },
       {
         path: "/manageVoter",
@@ -72,13 +81,10 @@ export const appRouter = createBrowserRouter([
         ]
       },
       {
-        path: "/Signout",
+        path: "/signout",
         element: <Signin />
       },
-      {
-        path: "/Signin",
-        element: <Signin />
-      }
+
     ]
   },
 ]);

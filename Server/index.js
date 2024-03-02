@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import './db.js'
 import { ElectionRouter } from "./routes/ElectionRoutes.js";
+import { AdminRouter } from "./routes/auth.js";
 
 //Routes
 const app = express()
@@ -18,7 +19,12 @@ app.use(cors(
 app.use(cookieParser())
 dotenv.config()
 app.use('/ElectionRoutes', ElectionRouter);
+app.use('/auth', AdminRouter);
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

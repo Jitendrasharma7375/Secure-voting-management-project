@@ -48,20 +48,20 @@ function VoterNavbar() {
           </button>
         </div>
         <div className="ms-auto">
-            <button
-              className="btn btn-outline-light"
-              onClick={handleSignOut}
-              style={{
-                border: "none",
-                backgroundColor: "transparent",
-                boxShadow: "none",
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "white",
-              }}
-            >
-              Sign Out
-            </button>
+          <button
+            className="btn btn-outline-light"
+
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              boxShadow: "none",
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "white",
+            }}
+          >
+            Sign Out
+          </button>
         </div>
       </div>
     </nav>

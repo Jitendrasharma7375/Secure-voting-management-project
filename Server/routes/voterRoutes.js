@@ -4,9 +4,9 @@ const router = express.Router();
 import { Voter } from "../models/Voter.js";
 
 // Get voter details by ID
-router.get("/getVotes", async (req, res) => {
+router.get("/:voterID", async (req, res) => {
   try {
-    const voterID = req.params.id;
+    const voterID = req.params.voterID;
     const voterDetails = await Voter.findOne({ id: voterID });
     res.json(voterDetails);
   } catch (error) {

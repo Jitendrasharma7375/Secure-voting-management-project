@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import axios from 'axios'; // Import axios for making HTTP requests
-
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function GiveVote() {
     const [selectedElection, setSelectedElection] = useState("");
     const [selectedCandidate, setSelectedCandidate] = useState("");
     const [candidateParty, setCandidateParty] = useState("");
+    const [elections, setElections] = useState([]);
+    const [candidatesByElection, setCandidatesByElection] = useState([]);
+    const [voterData, setVoterData] = useState([]);
 
-    const [elections, setElections] = useState([]); // State to store elections fetched from MongoDB
-    const [candidatesByElection, setCandidatesByElection] = useState([]); // State to store candidates fetched from MongoDB
-    const [voterData, setVoterData] = useState([]); // State to store voters fetched from MongoDB
-
-    // Fetch elections and candidates from MongoDB when the component mounts
     useEffect(() => {
         const fetchElections = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/electionRoutes/getElections');
-                console.log(response.data);
                 setElections(response.data);
             } catch (error) {
                 console.error('Error fetching elections:', error);
@@ -27,8 +25,7 @@ function GiveVote() {
         const fetchCandidates = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/candidateRoutes/getCandidates');
-                console.log(response.data); // Log the actual data fetched
-                setCandidatesByElection(response.data); // This sets the state
+                setCandidatesByElection(response.data);
             } catch (error) {
                 console.error('Error fetching candidates:', error);
             }
@@ -39,33 +36,24 @@ function GiveVote() {
     }, []);
 
     const handleElectionChange = (e) => {
-        try {
-            setSelectedElection(e.target.value);
-        } catch (error) {
-            console.error('Error fetching election details:', error);
-        }
+        setSelectedElection(e.target.value);
     };
 
     const handleCandidate = (e) => {
-        try {
-            const selectedValue = e.target.value;
-            console.log('Selected candidate:', selectedValue);
-            const [candidateName, party] = selectedValue.split(" - "); // Splitting the selected value to get candidate name and party
-            setSelectedCandidate(candidateName);
-            setCandidateParty(party);
-        } catch (error) {
-            console.error('Error fetching candidate details:', error);
-        }
+        const selectedValue = e.target.value;
+        const [candidateName, party] = selectedValue.split(" - ");
+        setSelectedCandidate(candidateName);
+        setCandidateParty(party);
     };
 
     const handleVote = async () => {
         try {
-            axios.get("http://localhost:3000/voterInsertRoutes/getVoter").then((response) => {
-                setVoterData(response.data);
-            });
+            const response = await axios.get("http://localhost:3000/voterInsertRoutes/getVoter");
+            setVoterData(response.data);
         } catch (error) {
             console.error('Error fetching voter details:', error);
         }
+
         try {
             await axios.post('http://localhost:3000/voteRoutes/submitVote', {
                 Voter_ID: "voter@gmail.com",
@@ -74,7 +62,10 @@ function GiveVote() {
                 Candidate_Party: candidateParty,
                 Election_ID: selectedElection
             });
-            console.log('Vote submitted for candidate:', selectedCandidate, 'in election:', selectedElection);
+                toast.success("Thank you! Your vote has been submitted");
+                setTimeout(() => {
+                    window.location.reload("/giveVote");
+                }, 1000);
         } catch (error) {
             console.error('Error submitting vote:', error);
         }
@@ -83,6 +74,7 @@ function GiveVote() {
     return (
         <>
             <Navbar />
+            <ToastContainer />
             <div className="min-h-screen bg-gray-100 flex justify-center items-center">
                 <div className="bg-white shadow-md rounded-md p-6">
                     <h1 className="text-2xl font-bold mb-4">Give Vote</h1>

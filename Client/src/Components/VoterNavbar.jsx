@@ -50,7 +50,7 @@ function VoterNavbar() {
         <div className="ms-auto">
           <button
             className="btn btn-outline-light"
-
+            onClick={() => (window.location.href = "/signin")}
             style={{
               border: "none",
               backgroundColor: "transparent",

@@ -7,7 +7,7 @@ function GiveVote() {
     const [selectedCandidate, setSelectedCandidate] = useState("");
 
     const [elections, setElections] = useState([]); // State to store elections fetched from MongoDB
-    const [candidatesByElection, setCandidatesByElection] = useState({}); // State to store candidates fetched from MongoDB
+    const [candidatesByElection, setCandidatesByElection] = useState([]); // State to store candidates fetched from MongoDB
 
     // Fetch elections and candidates from MongoDB when the component mounts
     useEffect(() => {
@@ -24,22 +24,37 @@ function GiveVote() {
         const fetchCandidates = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/candidateRoutes/getCandidates');
-                setCandidatesByElection(response.data.candidatesByElection);
+                console.log(response.data.candidatesByElection);
+                setCandidatesByElection(response.datax);
+                console.log(setCandidatesByElection(response.data));
+
             } catch (error) {
                 console.error('Error fetching candidates:', error);
             }
         };
+
         fetchElections();
         fetchCandidates();
     }, []);
 
     const handleElectionChange = (e) => {
-        //alert(e.target.value);
-        var electionId= e.target.value;
-        // localStorage.setItem('electionId', e.target.value);
-        setSelectedElection(electionId);
-        // setSelectedCandidate('');
+        try {
+            console.log(e.target.value);
+            setSelectedElection(e.target.value);
+            console.log(selectedElection);
+        } catch (error) {
+            console.error('Error fetching election details:', error);
+        }
     };
+
+    // const handleCandidate = (e) => {
+    //     try {
+    //         console.log(e.target.value);
+    //         setSelectedCandidate(e.target.value);
+    //     } catch (error) {
+    //         console.error('Error fetching candidate details:', error);
+    //     }
+    // };
 
     const handleVote = async () => {
 
@@ -74,6 +89,7 @@ function GiveVote() {
                             {elections.map(election => (
                                 <option key={election.electionId} value={election.electionId}>{election.electionName}</option>
                             ))}
+
                         </select>
                     </div>
                     {selectedElection && (
@@ -83,13 +99,18 @@ function GiveVote() {
                                 id="candidate"
                                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 w-full"
                                 value={selectedCandidate}
-                                onChange={(e) => setSelectedCandidate(e.target.value)}
+                                onChange={(e) => { setSelectedCandidate(e.target.value) }}
                                 required
                             >
                                 <option value="">Select candidate</option>
                                 {candidatesByElection[selectedElection]?.map(candidate => (
-                                    <option key={candidate.id} value={candidate.id}>{candidate.name}</option>
+                                    <option key={candidate._id} value={candidate._id}>
+                                        {candidate.name} - {candidate.party}
+                                    </option>
                                 ))}
+
+
+
                             </select>
                         </div>
                     )}

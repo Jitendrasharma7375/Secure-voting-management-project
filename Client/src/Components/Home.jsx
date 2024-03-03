@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [electionData, setElectionData] = useState([]);
-  const [showDetails, setShowDetails] = useState(true); // State to manage details display
+  const [showDetails, setShowDetails] = useState(false); // State to manage details display
 
   useEffect(() => {
     const fetchData = async () => {

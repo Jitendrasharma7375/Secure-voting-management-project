@@ -9,7 +9,7 @@ function Navbar() {
 				<div className="left flex text-white">
 					<Link to={"/home"}><div className="logo font-bold text-2xl text-white mt-2">SVMS</div></Link>
 					<ul className='flex ml-4 items-center space-x-4 mt-2 no-underlin'>
-						<Link to={"/Home"}><li className='text-white '>Home</li></Link >
+						<Link to={"/home"}><li className='text-white '>Home</li></Link >
 						<Link to={"/ManageElection"}><li className='text-white'>Manage Election</li></Link>
 						<Link to={"/ManageVoter"}><li className='text-white'>Manage Voter</li></Link>
 						<Link to={"/givevote"}><li className='text-white'>Give Vote</li></Link>

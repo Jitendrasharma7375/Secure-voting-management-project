@@ -30,7 +30,6 @@ function GiveVote() {
                 console.error('Error fetching candidates:', error);
             }
         };
-
         fetchElections();
         fetchCandidates();
     }, []);

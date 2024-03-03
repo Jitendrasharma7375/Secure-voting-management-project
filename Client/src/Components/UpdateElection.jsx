@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,13 +10,43 @@ const UpdateElection = () => {
   const [electionId, setElectionId] = useState('');
   const [electionName, setElectionName] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [startTime, setStartTime] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [endTime, setEndTime] = useState('');
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.put("http://localhost:3000/ElectionRoutes/updateElection", { electionId, electionName, startDate, endDate }); // Include role in the request body
-      console.log(result);
+      const today = new Date();
+      const thirtyDaysFromNow = new Date(today);
+      thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
+      const selectedStartDate = new Date(`${startDate}T${startTime}`);
+      const selectedEndDate = new Date(`${endDate}T${endTime}`);
+
+      if (selectedStartDate < today) {
+        toast.error('Start date and time cannot be before the present time!');
+        return;
+      }
+
+      if (selectedStartDate > thirtyDaysFromNow) {
+        toast.error('Start date and time cannot be more than 30 days from today!');
+        return;
+      }
+
+      if (selectedEndDate < selectedStartDate) {
+        toast.error('End date and time cannot be before start date and time!');
+        return;
+      }
+
+      const result = await axios.put("http://localhost:3000/ElectionRoutes/updateElection", {
+        electionId,
+        electionName,
+        startDate: selectedStartDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+        startTime: selectedStartDate.toISOString().split('T')[1].slice(0, 5), // Format as HH:MM
+        endDate: selectedEndDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+        endTime: selectedEndDate.toISOString().split('T')[1].slice(0, 5) // Format as HH:MM
+      });
 
       if (result.data.message === "Election updated successfully") {
         toast.success("Update Success");
@@ -24,13 +54,12 @@ const UpdateElection = () => {
           navigate("/manageElection");
         }, 1000);
       } else {
-        toast.error(result.data.message);
+        toast.error("Election not found");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Election not found");
     }
   };
-
 
   return (
     <>
@@ -73,6 +102,17 @@ const UpdateElection = () => {
               />
             </div>
             <div className="flex flex-col">
+              <label htmlFor="startTime" className="font-semibold mb-1">Start Time</label>
+              <input
+                type="time"
+                id="startTime"
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex flex-col">
               <label htmlFor="endDate" className="font-semibold mb-1">End Date</label>
               <input
                 type="date"
@@ -80,6 +120,17 @@ const UpdateElection = () => {
                 className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="endTime" className="font-semibold mb-1">End Time</label>
+              <input
+                type="time"
+                id="endTime"
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
                 required
               />
             </div>

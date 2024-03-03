@@ -1,97 +1,59 @@
-import React from "react";
-import Navbar from "./Navbar";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
-function Home() {
-  // Sample data for recent, running, and upcoming elections
-  const recentElectionsResults = [
-    { candidate: "Candidate A", votes: 40 },
-    { candidate: "Candidate B", votes: 35 },
-    { candidate: "Candidate C", votes: 25 },
-  ];
+const Home = () => {
+  const [electionData, setElectionData] = useState([]);
+  const [showDetails, setShowDetails] = useState(true); // State to manage details display
 
-  const runningElectionsResults = [
-    { candidate: "Candidate 1", votes: 45 },
-    { candidate: "Candidate 2", votes: 30 },
-    { candidate: "Candidate 3", votes: 25 },
-  ];
-
-  const upcomingElectionsResults = [
-    { candidate: "Candidate X", votes: 20 },
-    { candidate: "Candidate Y", votes: 30 },
-    { candidate: "Candidate Z", votes: 50 },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/electionRoutes/getElections');
+        setElectionData(response.data);
+      } catch (error) {
+        console.error('Error fetching election data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <Navbar />
-      <div className="container mx-auto mt-14 w-full h-full ">
-        <h1 className="text-3xl font-semibold mb-4">Home Page</h1>
-
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">Recent Elections</h2>
-          <div className="bg-gray-100 p-4 mb-2">
-            <table className="table-auto w-full">
-              <thead>
-                <tr>
-                  <th>Candidate</th>
-                  <th>Votes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentElectionsResults.map((result, index) => (
-                  <tr key={index}>
-                    <td>{result.candidate}</td>
-                    <td>{result.votes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <div className="py-5 min-h-[100vh] h-auto">
+        <div className="flex items-center justify-center mt-[60px] space-x-3">
+          <button className='border bg-blue-500 text-white font-semibold px-3 py-1 cursor-pointer rounded-md' onClick={() => setShowDetails(!showDetails)}>
+            {showDetails ? 'Hide Election Details' : 'Show Election Details'}
+          </button>
         </div>
-
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">Running Elections</h2>
-          <div className="bg-gray-100 p-4 mb-2">
-            <table className="table-auto w-full">
-              <thead>
-                <tr>
-                  <th>Candidate</th>
-                  <th>Votes</th>
+        {showDetails && (
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>Start Time</th>
+                <th>End Date</th>
+                <th>End Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {electionData.map(election => (
+                <tr key={election.electionId}>
+                  <td>{election.electionId}</td>
+                  <td>{election.electionName}</td>
+                  <td>{election.startDate}</td>
+                  <td>{election.startTime}</td>
+                  <td>{election.endDate}</td>
+                  <td>{election.endTime}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {runningElectionsResults.map((result, index) => (
-                  <tr key={index}>
-                    <td>{result.candidate}</td>
-                    <td>{result.votes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-xl font-semibold mb-2">Upcoming Elections</h2>
-          <div className="bg-gray-100 p-4 mb-2">
-            <table className="table-auto w-full">
-              <thead>
-                <tr>
-                  <th>Candidate</th>
-                  <th>Votes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {upcomingElectionsResults.map((result, index) => (
-                  <tr key={index}>
-                    <td>{result.candidate}</td>
-                    <td>{result.votes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   );

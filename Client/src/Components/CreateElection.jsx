@@ -1,24 +1,51 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios'; // Don't forget to import axios
+import axios from 'axios';
 import Navbar from './Navbar';
 
 function CreateElection() {
     const [electionId, setElectionId] = useState('');
     const [electionName, setElectionName] = useState('');
     const [startDate, setStartDate] = useState('');
+    const [startTime, setStartTime] = useState(''); // Add startTime state
     const [endDate, setEndDate] = useState('');
+    const [endTime, setEndTime] = useState(''); // Add endTime state
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const today = new Date();
+            const thirtyDaysFromNow = new Date(today);
+            thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+    
+            const selectedStartDate = new Date(`${startDate}T${startTime}`);
+            const selectedEndDate = new Date(`${endDate}T${endTime}`);
+    
+            if (selectedStartDate < today) {
+                toast.error('Start date and time cannot be before the present time!');
+                return;
+            }
+    
+            if (selectedStartDate > thirtyDaysFromNow) {
+                toast.error('Start date and time cannot be more than 30 days from today!');
+                return;
+            }
+    
+            if (selectedEndDate < selectedStartDate) {
+                toast.error('End date and time cannot be before start date and time!');
+                return;
+            }
+    
             const response = await axios.post("http://localhost:3000/ElectionRoutes/createElection", {
                 electionId,
                 electionName,
-                startDate,
-                endDate
+                startDate: selectedStartDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+                startTime: selectedStartDate.toISOString().split('T')[1].slice(0, 5), // Format as HH:MM
+                endDate: selectedEndDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+                endTime: selectedEndDate.toISOString().split('T')[1].slice(0, 5) // Format as HH:MM
             });
+    
             if (response.data.added) {
                 toast.success('Election created successfully!');
                 console.log('Election created successfully!');
@@ -33,6 +60,7 @@ function CreateElection() {
             toast.error('An error occurred while submitting the form.');
         }
     };
+    
     return (
         <>
             <Navbar />
@@ -75,6 +103,17 @@ function CreateElection() {
                             />
                         </div>
                         <div className="flex flex-col">
+                            <label htmlFor="startTime" className="font-semibold mb-1">Start Time</label>
+                            <input
+                                type="time"
+                                id="startTime"
+                                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                                value={startTime}
+                                onChange={(e) => setStartTime(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="flex flex-col">
                             <label htmlFor="endDate" className="font-semibold mb-1">End Date</label>
                             <input
                                 type="date"
@@ -82,6 +121,17 @@ function CreateElection() {
                                 className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="endTime" className="font-semibold mb-1">End Time</label>
+                            <input
+                                type="time"
+                                id="endTime"
+                                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+                                value={endTime}
+                                onChange={(e) => setEndTime(e.target.value)}
                                 required
                             />
                         </div>

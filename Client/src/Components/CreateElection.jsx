@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -11,6 +11,19 @@ function CreateElection() {
     const [startTime, setStartTime] = useState(''); // Add startTime state
     const [endDate, setEndDate] = useState('');
     const [endTime, setEndTime] = useState(''); // Add endTime state
+    const [candidatesExist, setCandidatesExist] = useState(false);
+
+    useEffect(() => {
+        const fetchCandidateData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/candidateRoutes/getCandidates');
+                setCandidatesExist(response.data.length > 0);
+            } catch (error) {
+                console.error('Error fetching candidate data:', error);
+            }
+        };
+        fetchCandidateData();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,25 +31,30 @@ function CreateElection() {
             const today = new Date();
             const thirtyDaysFromNow = new Date(today);
             thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
-    
+
             const selectedStartDate = new Date(`${startDate}T${startTime}`);
             const selectedEndDate = new Date(`${endDate}T${endTime}`);
-    
+
             if (selectedStartDate < today) {
                 toast.error('Start date and time cannot be before the present time!');
                 return;
             }
-    
+
             if (selectedStartDate > thirtyDaysFromNow) {
                 toast.error('Start date and time cannot be more than 30 days from today!');
                 return;
             }
-    
+
             if (selectedEndDate < selectedStartDate) {
                 toast.error('End date and time cannot be before start date and time!');
                 return;
             }
-    
+
+            if (!candidatesExist) {
+                toast.error('Candidates must be added before creating an election!');
+                return;
+            }
+
             const response = await axios.post("http://localhost:3000/ElectionRoutes/createElection", {
                 electionId,
                 electionName,
@@ -45,7 +63,7 @@ function CreateElection() {
                 endDate: selectedEndDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
                 endTime: selectedEndDate.toISOString().split('T')[1].slice(0, 5) // Format as HH:MM
             });
-    
+
             if (response.data.added) {
                 toast.success('Election created successfully!');
                 console.log('Election created successfully!');
@@ -60,14 +78,15 @@ function CreateElection() {
             toast.error('An error occurred while submitting the form.');
         }
     };
-    
+
     return (
         <>
             <Navbar />
             <ToastContainer />
-            <div className="w-full h-full flex justify-center items-center bg-gray-100">
+            <div className="w-full h-full flex justify-center items-center">
                 <div className="bg-white rounded shadow-md p-8">
                     <h2 className="text-2xl font-bold mb-4">Create Election</h2>
+                    <h2 className="text-base font-semibold mb-4">Please Add Election ID and Election Name differents</h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="flex flex-col">
                             <label htmlFor="electionId" className="font-semibold mb-1">Election ID</label>

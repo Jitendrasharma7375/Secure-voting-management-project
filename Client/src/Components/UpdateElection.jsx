@@ -64,7 +64,7 @@ const UpdateElection = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full h-full flex justify-center items-center bg-gray-100">
+      <div className="w-full h-full flex justify-center items-center ">
         <div className="bg-white rounded shadow-md p-8">
           <h2 className="text-2xl font-bold mb-4">Update Election</h2>
           <form onSubmit={handleUpdate} className="space-y-4">

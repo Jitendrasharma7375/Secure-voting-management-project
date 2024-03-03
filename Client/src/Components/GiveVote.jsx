@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import axios from 'axios'; // Import axios for making HTTP requests
 
+
 function GiveVote() {
     const [selectedElection, setSelectedElection] = useState("");
     const [selectedCandidate, setSelectedCandidate] = useState("");
+    const [candidateParty, setCandidateParty] = useState("");
 
     const [elections, setElections] = useState([]); // State to store elections fetched from MongoDB
     const [candidatesByElection, setCandidatesByElection] = useState([]); // State to store candidates fetched from MongoDB
+    const [voterData, setVoterData] = useState([]); // State to store voters fetched from MongoDB
 
     // Fetch elections and candidates from MongoDB when the component mounts
     useEffect(() => {
@@ -24,10 +27,8 @@ function GiveVote() {
         const fetchCandidates = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/candidateRoutes/getCandidates');
-                console.log(response.data.candidatesByElection);
-                setCandidatesByElection(response.datax);
-                console.log(setCandidatesByElection(response.data));
-
+                console.log(response.data); // Log the actual data fetched
+                setCandidatesByElection(response.data); // This sets the state
             } catch (error) {
                 console.error('Error fetching candidates:', error);
             }
@@ -39,30 +40,39 @@ function GiveVote() {
 
     const handleElectionChange = (e) => {
         try {
-            console.log(e.target.value);
             setSelectedElection(e.target.value);
-            console.log(selectedElection);
         } catch (error) {
             console.error('Error fetching election details:', error);
         }
     };
 
-    // const handleCandidate = (e) => {
-    //     try {
-    //         console.log(e.target.value);
-    //         setSelectedCandidate(e.target.value);
-    //     } catch (error) {
-    //         console.error('Error fetching candidate details:', error);
-    //     }
-    // };
+    const handleCandidate = (e) => {
+        try {
+            const selectedValue = e.target.value;
+            console.log('Selected candidate:', selectedValue);
+            const [candidateName, party] = selectedValue.split(" - "); // Splitting the selected value to get candidate name and party
+            setSelectedCandidate(candidateName);
+            setCandidateParty(party);
+        } catch (error) {
+            console.error('Error fetching candidate details:', error);
+        }
+    };
 
     const handleVote = async () => {
-
         try {
-            await axios.post('/api/submitVote', {
-                Voter_ID: '1', // Replace with actual voter ID
-                Candidate_ID: selectedCandidate,
-                Election_ID: localStorage.getItem('electionId')
+            axios.get("http://localhost:3000/voterInsertRoutes/getVoter").then((response) => {
+                setVoterData(response.data);
+            });
+        } catch (error) {
+            console.error('Error fetching voter details:', error);
+        }
+        try {
+            await axios.post('http://localhost:3000/voteRoutes/submitVote', {
+                Voter_ID: "voter@gmail.com",
+                Voter_Name: "voter1",
+                Candidate_Name: selectedCandidate,
+                Candidate_Party: candidateParty,
+                Election_ID: selectedElection
             });
             console.log('Vote submitted for candidate:', selectedCandidate, 'in election:', selectedElection);
         } catch (error) {
@@ -89,7 +99,6 @@ function GiveVote() {
                             {elections.map(election => (
                                 <option key={election.electionId} value={election.electionId}>{election.electionName}</option>
                             ))}
-
                         </select>
                     </div>
                     {selectedElection && (
@@ -98,19 +107,16 @@ function GiveVote() {
                             <select
                                 id="candidate"
                                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 w-full"
-                                value={selectedCandidate}
-                                onChange={(e) => { setSelectedCandidate(e.target.value) }}
+                                value={`${selectedCandidate} - ${candidateParty}`}
+                                onChange={handleCandidate}
                                 required
                             >
                                 <option value="">Select candidate</option>
-                                {candidatesByElection[selectedElection]?.map(candidate => (
-                                    <option key={candidate._id} value={candidate._id}>
+                                {candidatesByElection.map(candidate => (
+                                    <option key={candidate.name} value={`${candidate.name} - ${candidate.party}`}>
                                         {candidate.name} - {candidate.party}
                                     </option>
                                 ))}
-
-
-
                             </select>
                         </div>
                     )}

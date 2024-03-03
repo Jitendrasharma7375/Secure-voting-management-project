@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Signin from "./Signin";
+import GiveVote from "./GiveVote";
 function VoterNavbar() {
   const handleSignOut = () => {
     try {
@@ -16,50 +17,52 @@ function VoterNavbar() {
   };
 
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-light"
-      style={{ backgroundColor: "blue" }}
-    >
-      <style>
-        {`
+    <>
+
+      <nav
+        className="navbar navbar-expand-lg navbar-light"
+        style={{ backgroundColor: "blue" }}
+      >
+        <style>
+          {`
           .btn.btn-outline-light:hover {
             background-color: transparent !important;
             text-decoration: none !important;
           }
         `}
-      </style>
-      <div className="container-fluid">
-        <div
-          className="logo font-bold text-2xl text-white"
-          style={{ marginRight: "20px" }}
-        >
-          SVMS
-        </div>
-        <div className="d-flex justify-content-flex-start">
-          <button
-            className="btn btn-outline-light"
-            onClick={() => (window.location.href = "/voterhome")}
-            style={{
-              border: "none",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
+        </style>
+        <div className="container-fluid">
+          <div
+            className="logo font-bold text-2xl text-white"
+            style={{ marginRight: "20px" }}
           >
-            Voter Dashboard
-          </button>
-          <button
-            className="btn btn-outline-light"
-            onClick={() => (window.location.href = "/voter-votes")}
-            style={{
-              border: "none",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            Vote
-          </button>
-        </div>
-        <div className="ms-auto">
+            SVMS
+          </div>
+          <div className="d-flex justify-content-flex-start">
+            <button
+              className="btn btn-outline-light"
+              onClick={() => (window.location.href = "/voterhome")}
+              style={{
+                border: "none",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
+              Voter Dashboard
+            </button>
+            <button
+              className="btn btn-outline-light"
+              onClick={() => (window.location.href = "/voter-votes")}
+              style={{
+                border: "none",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
+              Vote
+            </button>
+          </div>
+          <div className="ms-auto">
             <button
               className="btn btn-outline-light"
               onClick={handleSignOut}
@@ -74,9 +77,10 @@ function VoterNavbar() {
             >
               Sign Out
             </button>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
 

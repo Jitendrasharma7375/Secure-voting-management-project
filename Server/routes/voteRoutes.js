@@ -5,10 +5,12 @@ const router = express.Router();
 
 router.post('/submitVote', async (req, res) => {
     try {
-        const { Voter_ID, Candidate_ID, Election_ID } = req.body;
+        const { Voter_ID, Voter_Name, Candidate_Name,Candidate_Party, Election_ID } = req.body;
         const newVote = new SubmitVote({
             Voter_ID,
-            Candidate_ID,
+            Voter_Name,
+            Candidate_Name,
+            Candidate_Party,
             Election_ID
         });
         await newVote.save();

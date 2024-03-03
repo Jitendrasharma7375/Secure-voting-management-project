@@ -44,7 +44,7 @@ function Signin() {
             setVoter(result.data.voter);
           } else {
             // Assuming "voter" role
-            navigateTo("/voterhome");
+            navigateTo("/voterhome" ,{ state: { voterID: Voter_ID } });
           }
         }, 1000);
       } else if (

@@ -90,6 +90,10 @@ export const appRouter = createBrowserRouter([
         element:<VoterHome/>
       },
       {
+        path:"voterNavbar",
+        element:<VoterNavbar/>
+      },
+      {
         path:"/addCandidate",
         element:<AddCandidate/>
       }

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import VoterNavbar from "./VoterNavbar";
-
 import "tailwindcss/tailwind.css"; // Import Tailwind CSS
 
 const VoterHome = () => {

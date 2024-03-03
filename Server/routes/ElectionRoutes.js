@@ -19,10 +19,15 @@ router.post('/createElection', async (req, res) => {
     }
 });
 
-router.get("/getElectionDetails", (req, res) => {
-    Election.find()
-        .then(ElectionDetails => res.json(ElectionDetails))
-        .catch(res => res.json({ err }))
+router.get("/getElections", async (req, res) => {
+    try{
+        var election= await Election.find();
+        console.log(election);
+        res.json(election);
+    }
+    catch{
+
+    }
 })
 
 

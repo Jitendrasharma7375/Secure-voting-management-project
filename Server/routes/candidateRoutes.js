@@ -21,10 +21,15 @@ router.post('/createCandidate', async (req, res) => {
     }
 });
 
-router.get("/getCandidateDetails", (req, res) => {
-    Candidate.find()
+router.get("/getCandidates", (req, res) => {
+    try{
+        Candidate.find()
         .then(CandidateDetails => res.json(CandidateDetails))
         .catch(res => res.json({ err }))
+    }
+    catch (err) {
+        return res.json({ error: err.message })
+    }
 })
 
 export {router as CandidateRouter};

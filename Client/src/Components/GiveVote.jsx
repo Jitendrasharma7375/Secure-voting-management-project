@@ -3,8 +3,9 @@ import Navbar from './Navbar';
 import axios from 'axios'; // Import axios for making HTTP requests
 
 function GiveVote() {
-    const [selectedElection, setSelectedElection] = useState('');
-    const [selectedCandidate, setSelectedCandidate] = useState('');
+    const [selectedElection, setSelectedElection] = useState("");
+    const [selectedCandidate, setSelectedCandidate] = useState("");
+
     const [elections, setElections] = useState([]); // State to store elections fetched from MongoDB
     const [candidatesByElection, setCandidatesByElection] = useState({}); // State to store candidates fetched from MongoDB
 
@@ -13,7 +14,8 @@ function GiveVote() {
         const fetchElections = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/electionRoutes/getElections');
-                setElections(response.data.elections);
+                console.log(response.data);
+                setElections(response.data);
             } catch (error) {
                 console.error('Error fetching elections:', error);
             }
@@ -32,8 +34,11 @@ function GiveVote() {
     }, []);
 
     const handleElectionChange = (e) => {
-        setSelectedElection(e.target.value);
-        setSelectedCandidate('');
+        //alert(e.target.value);
+        var electionId= e.target.value;
+        // localStorage.setItem('electionId', e.target.value);
+        setSelectedElection(electionId);
+        // setSelectedCandidate('');
     };
 
     const handleVote = async () => {
@@ -42,7 +47,7 @@ function GiveVote() {
             await axios.post('/api/submitVote', {
                 Voter_ID: '1', // Replace with actual voter ID
                 Candidate_ID: selectedCandidate,
-                Election_ID: selectedElection
+                Election_ID: localStorage.getItem('electionId')
             });
             console.log('Vote submitted for candidate:', selectedCandidate, 'in election:', selectedElection);
         } catch (error) {
@@ -67,7 +72,7 @@ function GiveVote() {
                         >
                             <option value="">Select election</option>
                             {elections.map(election => (
-                                <option key={election.id} value={election.id}>{election.name}</option>
+                                <option key={election.electionId} value={election.electionId}>{election.electionName}</option>
                             ))}
                         </select>
                     </div>

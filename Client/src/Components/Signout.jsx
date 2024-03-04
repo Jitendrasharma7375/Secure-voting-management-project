@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import cookie from "react-cookies";
 const SignOut = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
+    cookie.remove('token');
     navigate('/signin');
   };
 

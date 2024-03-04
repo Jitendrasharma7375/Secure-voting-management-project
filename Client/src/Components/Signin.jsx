@@ -44,7 +44,7 @@ function Signin() {
             setVoter(result.data.voter);
           } else {
             // Assuming "voter" role
-            navigateTo("/voterhome" ,{ state: { voterID: Voter_ID } });
+            navigateTo("/voterhome", { state: { voterID: Voter_ID } });
           }
         }, 1000);
       } else if (
@@ -108,7 +108,7 @@ function Signin() {
           </div>
           <button
             type="submit"
-            className="btn btn-primary p-2 mt-2"
+            className="btn btn-primary p-2 mt-2 bg-blue-500"
           >
             Submit
           </button>

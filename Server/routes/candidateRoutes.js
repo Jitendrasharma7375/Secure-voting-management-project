@@ -26,9 +26,11 @@ router.post('/createCandidate', async (req, res) => {
   }
 });
 
-router.get('/getCandidates', async (req, res) => {
+router.post('/getCandidates', async (req, res) => {
   try {
-    const candidateDetails = await Candidate.find();
+    console.log(req.body);
+    const candidateDetails = await Candidate.find({ electionId: req.body.electionId });
+    console.log(candidateDetails);
     return res.json(candidateDetails);
   } catch (err) {
     return res.json({ error: err.message });

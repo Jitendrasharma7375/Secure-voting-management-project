@@ -24,7 +24,9 @@ function GiveVote() {
 
         const fetchCandidates = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/candidateRoutes/getCandidates');
+                //alert(selectedElection);
+                var electionIdLocal = localStorage.getItem("selectedElection");
+                const response = await axios.post('http://localhost:3000/candidateRoutes/getCandidates', { electionId: electionIdLocal });
                 setCandidatesByElection(response.data);
             } catch (error) {
                 console.error('Error fetching candidates:', error);
@@ -35,6 +37,7 @@ function GiveVote() {
     }, []);
 
     const handleElectionChange = (e) => {
+        localStorage.setItem("selectedElection", e.target.value);
         setSelectedElection(e.target.value);
     };
 
@@ -61,10 +64,10 @@ function GiveVote() {
                 Candidate_Party: candidateParty,
                 Election_ID: selectedElection
             });
-                toast.success("Thank you! Your vote has been submitted");
-                setTimeout(() => {
-                    window.location.reload("/giveVote");
-                }, 1000);
+            toast.success("Thank you! Your vote has been submitted");
+            setTimeout(() => {
+                window.location.reload("/giveVote");
+            }, 1000);
         } catch (error) {
             console.error('Error submitting vote:', error);
         }

@@ -5,6 +5,7 @@ const SignOut = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
+    cookie.remove('token');
     navigate('/signin');
   };
 

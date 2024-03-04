@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import cookie from "react-cookies";
 
 axios.defaults.withCredentials = true;
 
@@ -40,6 +41,7 @@ function Signin() {
         toast.success("Login Success");
         setTimeout(() => {
           if (role === "admin") {
+            cookie.save("token", result.data.jwttoken);
             navigateTo("/home");
             setVoter(result.data.voter);
           } else {

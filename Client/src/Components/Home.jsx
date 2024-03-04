@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
+import cookie from 'react-cookies';
 
 const Home = () => {
   const [electionData, setElectionData] = useState([]);
@@ -16,7 +17,32 @@ const Home = () => {
         console.error('Error fetching election data:', error);
       }
     };
-    fetchData();
+
+    const verifyToken = async () => {
+      try {
+        const token = cookie.load('token');
+        if (!token) {
+          window.location.href = '/signin';
+        } else {
+          const response = await axios.get('http://localhost:3000/auth/middleware', {}, {
+            headers: {
+              cookie: token,
+              withCredentials: true
+            }
+          }).then(res => {
+            console.log('Token verified:', res);
+            fetchData();
+          }).catch(err => {
+            console.error('Error verifying token:', err);
+            cookie.remove('token');
+            window.location.href = '/signin';
+          });
+        }
+      } catch (error) {
+        console.error('Error verifying token:', error);
+      }
+    };
+    verifyToken();
   }, []);
 
   return (

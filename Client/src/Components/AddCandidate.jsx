@@ -32,8 +32,20 @@ const AddCandidate = () => {
       toast.error(`You can only add ${numCandidates} candidates.`);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Check if all candidates' details are filled
+    const allCandidatesFilled = candidates.every(candidate =>
+      candidate.name && candidate.party && candidate.age && candidate.district && candidate.state
+    );
+
+    if (!allCandidatesFilled) {
+      toast.error("Please fill details for all candidates.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:3000/candidateRoutes/createCandidate",
@@ -43,8 +55,8 @@ const AddCandidate = () => {
         }
       );
       if (response.data.added) {
-        toast.success("Candidate Added successfully!");
-        console.log("Candidate Added successfully!");
+        toast.success("Candidate(s) added successfully!");
+        console.log("Candidate(s) added successfully!");
 
         console.log(response);
         setTimeout(() => {
@@ -58,6 +70,7 @@ const AddCandidate = () => {
       toast.error("An error occurred while submitting the candidate details.");
     }
   };
+
   return (
     <>
       <ToastContainer />
@@ -75,7 +88,6 @@ const AddCandidate = () => {
               onChange={(e) => {
                 setNumCandidates(parseInt(e.target.value));
                 setCandidates([]);
-                setNumCandidates(e.target.value);
               }}
               required
             >
@@ -188,19 +200,21 @@ const AddCandidate = () => {
               </div>
             </div>
           ))}
+          {candidates.length === numCandidates && (
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 m-2"
+            >
+              Submit
+            </button>
+          )}
           <button
             type="button"
             onClick={handleAddCandidate}
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 m-2"
           >
             Add Candidate
-          </button>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 m-2"
-          >
-            Submit
           </button>
         </form>
       </div>

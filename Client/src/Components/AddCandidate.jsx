@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -38,8 +38,8 @@ const AddCandidate = () => {
       const response = await axios.post(
         "http://localhost:3000/candidateRoutes/createCandidate",
         {
-            candidates: candidates,
-            electionId: electionId
+          candidates: candidates,
+          electionId: electionId
         }
       );
       if (response.data.added) {
@@ -60,6 +60,7 @@ const AddCandidate = () => {
   };
   return (
     <>
+      <ToastContainer />
       <Navbar />
       <div className="w-full h-full flex justify-center items-center mt-14">
         <form action="">

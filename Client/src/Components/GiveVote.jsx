@@ -22,23 +22,18 @@ function GiveVote() {
             }
         };
 
-        const fetchCandidates = async () => {
-            try {
-                //alert(selectedElection);
-                var electionIdLocal = localStorage.getItem("selectedElection");
-                const response = await axios.post('http://localhost:3000/candidateRoutes/getCandidates', { electionId: electionIdLocal });
-                setCandidatesByElection(response.data);
-            } catch (error) {
-                console.error('Error fetching candidates:', error);
-            }
-        };
         fetchElections();
-        fetchCandidates();
     }, []);
 
-    const handleElectionChange = (e) => {
-        localStorage.setItem("selectedElection", e.target.value);
-        setSelectedElection(e.target.value);
+    const handleElectionChange = async (e) => {
+        const selectedElectionId = e.target.value;
+        setSelectedElection(selectedElectionId);
+        try {
+            const response = await axios.post('http://localhost:3000/candidateRoutes/getCandidates', { electionId: selectedElectionId });
+            setCandidatesByElection(response.data);
+        } catch (error) {
+            console.error('Error fetching candidates:', error);
+        }
     };
 
     const handleCandidate = (e) => {

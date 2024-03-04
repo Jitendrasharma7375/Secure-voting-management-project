@@ -23,7 +23,6 @@ function GiveVote() {
                 console.error('Error fetching elections:', error);
             }
         };
-
         fetchElections();
     }, []);
 

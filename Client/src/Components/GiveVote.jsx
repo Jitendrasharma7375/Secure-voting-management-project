@@ -1,8 +1,10 @@
+// Import useState and useEffect
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import VoterNavbar from './VoterNavbar';
 
 function GiveVote() {
     const [selectedElection, setSelectedElection] = useState("");
@@ -45,13 +47,13 @@ function GiveVote() {
 
     const handleVote = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/voterInsertRoutes/getVoter");
-            setVoterData(response.data);
-        } catch (error) {
-            console.error('Error fetching voter details:', error);
-        }
+            // Check if the user has already voted in the selected election
+            const hasVoted = voterData.some(voter => voter.Election_ID === selectedElection);
+            if (hasVoted) {
+                toast.error("You have already voted in this election.");
+                return;
+            }
 
-        try {
             await axios.post('http://localhost:3000/voteRoutes/submitVote', {
                 Voter_ID: "voter@gmail.com",
                 Voter_Name: "voter1",
@@ -60,9 +62,14 @@ function GiveVote() {
                 Election_ID: selectedElection
             });
             toast.success("Thank you! Your vote has been submitted");
-            setTimeout(() => {
-                window.location.reload("/giveVote");
-            }, 1000);
+
+            // Update voterData state to reflect the new vote
+            setVoterData([...voterData, { Election_ID: selectedElection }]);
+
+            // Clear selections
+            setSelectedElection("");
+            setSelectedCandidate("");
+            setCandidateParty("");
         } catch (error) {
             console.error('Error submitting vote:', error);
         }
@@ -70,7 +77,7 @@ function GiveVote() {
 
     return (
         <>
-            <Navbar />
+            <VoterNavbar />
             <ToastContainer />
             <div className="min-h-screen bg-gray-100 flex justify-center items-center">
                 <div className="bg-white shadow-md rounded-md p-6">

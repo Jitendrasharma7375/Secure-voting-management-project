@@ -5,7 +5,8 @@ const candidateSchema = new mongoose.Schema({
     party: String,
     age: Number,
     district: String,
-    state: String
+    state: String,
+    electionId: String
 });
 
 const CandidateSchema = mongoose.model('Candidate', candidateSchema);

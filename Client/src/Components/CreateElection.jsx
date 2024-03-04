@@ -50,11 +50,6 @@ function CreateElection() {
                 return;
             }
 
-            if (!candidatesExist) {
-                toast.error('Candidates must be added before creating an election!');
-                return;
-            }
-
             const response = await axios.post("http://localhost:3000/ElectionRoutes/createElection", {
                 electionId,
                 electionName,
@@ -67,8 +62,10 @@ function CreateElection() {
             if (response.data.added) {
                 toast.success('Election created successfully!');
                 console.log('Election created successfully!');
+                localStorage.setItem('electionId', electionId);
                 setTimeout(() => {
                     window.location.href = "/addCandidate";
+                    
                 }, 1000);
             } else {
                 console.log(response);

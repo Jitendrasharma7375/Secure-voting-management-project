@@ -1,25 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Signin from "./Signin";
 function VoterNavbar() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-light"
-      style={{ backgroundColor: "blue" }}
+      className="navbar navbar-expand-lg navbar-light bg-blue-500"
     >
-      <style>
-        {`
-          .btn.btn-outline-light:hover {
-            background-color: transparent !important;
-            text-decoration: none !important;
-          }
-        `}
-      </style>
       <div className="container-fluid">
         <div
           className="logo font-bold text-2xl text-white"
-          style={{ marginRight: "20px" }}
+          style={{
+            marginRight: "20px",
+            cursor: "pointer"
+          }}
         >
           SVMS
         </div>
@@ -37,14 +29,14 @@ function VoterNavbar() {
           </button>
           <button
             className="btn btn-outline-light"
-            onClick={() => (window.location.href = "/voter-votes")}
+            onClick={() => (window.location.href = "/GiveVote")}
             style={{
               border: "none",
               textDecoration: "none",
               cursor: "pointer",
             }}
           >
-            Vote
+            Give Vote
           </button>
         </div>
         <div className="ms-auto">
@@ -53,11 +45,8 @@ function VoterNavbar() {
             onClick={() => (window.location.href = "/signin")}
             style={{
               border: "none",
-              backgroundColor: "transparent",
-              boxShadow: "none",
               textDecoration: "none",
               cursor: "pointer",
-              color: "white",
             }}
           >
             Sign Out

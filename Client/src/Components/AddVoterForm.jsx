@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Navbar from './Navbar';
+import cookie from 'react-cookies';
 
 const AddVoterForm = () => {
     const [id, setId] = useState('');
@@ -46,6 +47,32 @@ const AddVoterForm = () => {
             toast.error("Error adding voter");
         }
     };
+    useEffect(() => {
+        const verifyToken = async () => {
+            try {
+                const token = cookie.load('token');
+                if (!token) {
+                    window.location.href = '/signin';
+                } else {
+                    const response = await axios.get('http://localhost:3000/auth/middleware', {}, {
+                        headers: {
+                            cookie: token,
+                            withCredentials: true
+                        }
+                    }).then(res => {
+                        console.log('Token verified:', res);
+                    }).catch(err => {
+                        console.error('Error verifying token:', err);
+                        cookie.remove('token');
+                        window.location.href = '/signin';
+                    });
+                }
+            } catch (error) {
+                console.error('Error verifying token:', error);
+            }
+        };
+        verifyToken();
+    }, []);
 
     return (
         <>
@@ -59,11 +86,11 @@ const AddVoterForm = () => {
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Voter Name</label>
-                        <input value={voterName} onChange={(e) => setVoterName(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='Name' required/>
+                        <input value={voterName} onChange={(e) => setVoterName(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='Name' required />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Age</label>
-                        <input value={age} onChange={(e) => setAge(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="Number" placeholder='Age' required/>
+                        <input value={age} onChange={(e) => setAge(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="Number" placeholder='Age' required />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">Gender</label>
@@ -83,11 +110,11 @@ const AddVoterForm = () => {
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">District</label>
-                        <input value={district} onChange={(e) => setDistrict(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='City' required/>
+                        <input value={district} onChange={(e) => setDistrict(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='City' required />
                     </div>
                     <div className='mt-3'>
                         <label htmlFor="">State</label>
-                        <input value={state} onChange={(e) => setState(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='State' required/>
+                        <input value={state} onChange={(e) => setState(e.target.value)} className='block px-2 py-2 bg-gray-200 outline-none rounded-md w-full' type="text" placeholder='State' required />
                     </div>
                     <button type="submit" className='rounded-md border bg-blue-500 px-3 py-1 cursor-pointer w-full mt-3 text-white font-bold '>Add Voter</button>
                 </form>

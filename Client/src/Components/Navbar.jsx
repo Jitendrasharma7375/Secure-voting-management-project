@@ -1,7 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import cookie from "react-cookies";
 
 function Navbar() {
+	const handleSignOut = () => {
+		try {
+			cookie.remove('token');
+			window.location.href = '/signin';
+		}
+		catch (error) {
+			console.error('Error signing out:', error);
+		}
+	};
 
 	return (
 		<>
@@ -12,10 +22,9 @@ function Navbar() {
 						<Link to={"/home"}><li className='text-white '>Home</li></Link >
 						<Link to={"/ManageElection"}><li className='text-white'>Manage Election</li></Link>
 						<Link to={"/ManageVoter"}><li className='text-white'>Manage Voter</li></Link>
-						<Link to={"/givevote"}><li className='text-white'>Give Vote</li></Link>
 					</ul>
 				</div>
-				<Link to={"/Signin"}><button className='text-white'>Sign Out</button></Link>
+				<button onClick={handleSignOut} className='text-white'>Sign Out</button>
 			</nav>
 		</>
 	)

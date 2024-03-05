@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Navbar';
+import cookie from 'react-cookies';
+
 
 const UpdateElection = () => {
   const navigate = useNavigate();
@@ -60,6 +62,34 @@ const UpdateElection = () => {
       toast.error("Election not found");
     }
   };
+  useEffect(() => {
+    const verifyToken = async () => {
+      try {
+        const token = cookie.load('token');
+        if (!token) {
+          window.location.href = '/signin';
+        } else {
+          const response = await axios.get('http://localhost:3000/auth/middleware', {}, {
+            headers: {
+              cookie: token,
+              withCredentials: true
+            }
+          }).then(res => {
+            console.log('Token verified:', res);
+          }).catch(err => {
+            console.error('Error verifying token:', err);
+            cookie.remove('token');
+            window.location.href = '/signin';
+          });
+        }
+      } catch (error) {
+        console.error('Error verifying token:', error);
+      }
+    };
+    verifyToken();
+  }, []);
+
+
 
   return (
     <>

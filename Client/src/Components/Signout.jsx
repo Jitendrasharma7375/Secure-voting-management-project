@@ -5,8 +5,15 @@ const SignOut = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    cookie.remove('token');
-    navigate('/signin');
+    alert('Signing out');
+    try {
+      cookie.remove('token').then(() => {
+        navigate('/signin');
+      });
+    }
+    catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   return (

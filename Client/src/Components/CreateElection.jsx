@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Navbar from './Navbar';
+import cookie from 'react-cookies';
 
 function CreateElection() {
     const [electionId, setElectionId] = useState('');
@@ -16,13 +17,37 @@ function CreateElection() {
     useEffect(() => {
         const fetchCandidateData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/candidateRoutes/getCandidates');
+                const response = await axios.post('http://localhost:3000/candidateRoutes/getCandidates');
                 setCandidatesExist(response.data.length > 0);
             } catch (error) {
                 console.error('Error fetching candidate data:', error);
             }
         };
-        fetchCandidateData();
+        const verifyToken = async () => {
+            try {
+                const token = cookie.load('token');
+                if (!token) {
+                    window.location.href = '/signin';
+                } else {
+                    const response = await axios.get('http://localhost:3000/auth/middleware', {}, {
+                        headers: {
+                            cookie: token,
+                            withCredentials: true
+                        }
+                    }).then(res => {
+                        console.log('Token verified:', res);
+                        fetchCandidateData();
+                    }).catch(err => {
+                        console.error('Error verifying token:', err);
+                        cookie.remove('token');
+                        window.location.href = '/signin';
+                    });
+                }
+            } catch (error) {
+                console.error('Error verifying token:', error);
+            }
+        };
+        verifyToken();
     }, []);
 
     const handleSubmit = async (e) => {
@@ -65,7 +90,7 @@ function CreateElection() {
                 localStorage.setItem('electionId', electionId);
                 setTimeout(() => {
                     window.location.href = "/addCandidate";
-                    
+
                 }, 1000);
             } else {
                 console.log(response);

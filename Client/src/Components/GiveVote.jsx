@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import VoterNavbar from './VoterNavbar';
+import cookie from 'react-cookies';
 
 function GiveVote() {
     const [selectedElection, setSelectedElection] = useState("");
@@ -23,7 +24,31 @@ function GiveVote() {
                 console.error('Error fetching elections:', error);
             }
         };
-        fetchElections();
+        const verifyToken = async () => {
+            try {
+                const token = cookie.load('token');
+                if (!token) {
+                    window.location.href = '/signin';
+                } else {
+                    const response = await axios.get('http://localhost:3000/auth/middleware', {}, {
+                        headers: {
+                            cookie: token,
+                            withCredentials: true
+                        }
+                    }).then(res => {
+                        console.log('Token verified:', res);
+                        fetchElections();
+                    }).catch(err => {
+                        console.error('Error verifying token:', err);
+                        cookie.remove('token');
+                        window.location.href = '/signin';
+                    });
+                }
+            } catch (error) {
+                console.error('Error verifying token:', error);
+            }
+        };
+        verifyToken();
     }, []);
 
     const handleElectionChange = async (e) => {

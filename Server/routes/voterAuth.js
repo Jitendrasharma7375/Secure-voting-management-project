@@ -1,7 +1,16 @@
 import express from "express";
 import { VoterSignin } from "../models/VoterSignin.js";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
+
+function createSecretToken(id) {
+    console.log(id);
+    return jwt.sign({ id }, process.env.TOKEN_KEY, {
+        expiresIn: "1h"
+    });
+}
 
 router.post('/signin', async (req, res) => {
     try {
@@ -9,7 +18,9 @@ router.post('/signin', async (req, res) => {
         const user = await VoterSignin.findOne({ Voter_ID });
         if (user) {
             if (user.password === password) {
-                res.json({ message: "Login Success" });
+                const token = createSecretToken(user.Voter_ID);
+                console.log(token);
+                res.status(201).json({ message: "Login Success", success: true, jwttoken: token });
             } else {
                 res.json({ message: "Wrong Password" });
             }

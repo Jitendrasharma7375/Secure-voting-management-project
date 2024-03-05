@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Navbar"; // Assuming Navbar is in the same directory
+import cookie from "react-cookies";
 
 function DeleteElection() {
   const [electionId, setElectionId] = useState("");
@@ -40,6 +41,7 @@ function DeleteElection() {
             }
           }).then(res => {
             console.log('Token verified:', res);
+
           }).catch(err => {
             console.error('Error verifying token:', err);
             cookie.remove('token');

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import VoterNavbar from "./VoterNavbar";
 import "tailwindcss/tailwind.css"; // Import Tailwind CSS
+import cookie from 'react-cookies';
 
 const VoterHome = () => {
   const location = useLocation();
@@ -21,6 +22,31 @@ const VoterHome = () => {
         console.error("Error fetching voter details:", error);
       }
     };
+    const verifyToken = async () => {
+      try {
+        const token = cookie.load('token');
+        if (!token) {
+          window.location.href = '/signin';
+        } else {
+          const response = await axios.get('http://localhost:3000/auth/middleware', {}, {
+            headers: {
+              cookie: token,
+              withCredentials: true
+            }
+          }).then(res => {
+            console.log('Token verified:', res);
+            fetchVoterDetails();
+          }).catch(err => {
+            console.error('Error verifying token:', err);
+            cookie.remove('token');
+            window.location.href = '/signin';
+          });
+        }
+      } catch (error) {
+        console.error('Error verifying token:', error);
+      }
+    };
+    verifyToken();
 
     if (voterID) {
       fetchVoterDetails();

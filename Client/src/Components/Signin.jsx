@@ -46,11 +46,10 @@ function Signin() {
             setVoter(result.data.voter);
           } else {
             // Assuming "voter" role
-            alert(result.data.jwttoken);
             cookie.save("token", result.data.jwttoken);
             navigateTo("/voterhome", { state: { voterID: Voter_ID } });
           }
-        }, 600);
+        }, 1000);
       } else if (
         result.data.message === "User not found" ||
         result.data.message === "Wrong Password"

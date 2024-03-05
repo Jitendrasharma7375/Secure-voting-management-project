@@ -1,14 +1,16 @@
 import React from "react";
+import cookie from "react-cookies";
+
 function VoterNavbar() {
   const handleSignOut = () => {
-		try {
-			cookie.remove('token');
-			window.location.href = '/signin';
-		}
-		catch (error) {
-			console.error('Error signing out:', error);
-		}
-	};
+    try {
+      cookie.remove('token');
+      window.location.href = '/signin';
+    }
+    catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light bg-blue-500"
@@ -50,7 +52,7 @@ function VoterNavbar() {
         <div className="ms-auto">
           <button
             className="btn btn-outline-light"
-            onClick={handleSignOut}
+            onClick={() => handleSignOut()}
             style={{
               border: "none",
               textDecoration: "none",

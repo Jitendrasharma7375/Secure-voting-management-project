@@ -13,6 +13,7 @@ import GiveVote from './Components/GiveVote';
 import AddCandidate from './Components/AddCandidate';
 import VoterNavbar from './Components/VoterNavbar';
 import VoterHome from './Components/VoterHome';
+import Result from './Components/Result';
 
 
 const App = () => {
@@ -32,6 +33,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/home",
         element: <Home />
+      },
+      {
+        path:"/result",
+        element:<Result/>
       },
       {
         path: "/",

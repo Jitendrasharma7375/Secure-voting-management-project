@@ -22,6 +22,7 @@ function Navbar() {
 						<Link to={"/home"}><li className='text-white '>Home</li></Link >
 						<Link to={"/ManageElection"}><li className='text-white'>Manage Election</li></Link>
 						<Link to={"/ManageVoter"}><li className='text-white'>Manage Voter</li></Link>
+						<Link to={"/Result"}><li className='text-white'>Result</li></Link>
 					</ul>
 				</div>
 				<button onClick={handleSignOut} className='text-white'>Sign Out</button>

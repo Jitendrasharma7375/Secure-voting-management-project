@@ -38,10 +38,13 @@ __*You need to manually add the Admin credentials to the MongoDB database. Use t
 
 __*1.Start MongoDB if it's not already running:*__  
   __mongod__  
+  
 __*2.Open another terminal and type:*__  
   __mongo__  
+  
 __*3.Use your database:*__  
 __use secure-voting-management-system__   
+
 __*4.Insert the admin credentials:*__  
 **db.admins.insert({  
      adminId: "admin@gmail.com",  

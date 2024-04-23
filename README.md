@@ -18,16 +18,16 @@ Before you begin, ensure you have the following installed:
 
 ## Installation
 
-__*Clone the repository to your local machine:*__
+- __*Clone the repository to your local machine:*__
 
 __git clone https://github.com/jitendrasharma7375/Secure-voting-management-system.git__ <br>
 __cd Secure-voting-management-system__ <br>
 
-__*Install the required npm packages:*__ <br>
+- __*Install the required npm packages:*__ <br>
 
 __npm install__ 
 
-__*Navigate to the client directory and install React dependencies:*__
+- __*Navigate to the client directory and install React dependencies:*__
 
 __cd client__   
 __npm install__

@@ -20,8 +20,8 @@ Before you begin, ensure you have the following installed:
 
 __*Clone the repository to your local machine:*__
 
-__git clone https://github.com/jitendrasharma7375/secure-voting-management-system.git__ <br>
-__cd secure-voting-management-system__ <br>
+__git clone https://github.com/jitendrasharma7375/Secure-voting-management-system.git__ <br>
+__cd Secure-voting-management-system__ <br>
 
 __*Install the required npm packages:*__ <br>
 
@@ -43,7 +43,7 @@ __*2.Open another terminal and type:*__
   __mongo__  
   
 __*3.Use your database:*__  
-__use secure-voting-management-system__   
+__use Secure-voting-management-system__   
 
 __*4.Insert the admin credentials:*__  
 **db.admins.insert({  

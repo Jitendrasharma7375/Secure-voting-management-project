@@ -29,6 +29,7 @@ __npm install__
 
 **Navigate to the client directory and install React dependencies:**
 __cd client__<br>
+
 __npm install__
 
 **Database Setup**
@@ -36,21 +37,21 @@ __npm install__
 You need to manually add the Admin credentials to the MongoDB database. Use the following steps to set up your initial admin user.
 
 1.Start MongoDB if it's not already running: <br>
-__mongod__
+  __mongod__
 
 2.Open another terminal and type: <br>
-__mongo__
+  __mongo__
 
 3.Use your database: <br>
 **use secure-voting-management-system**
 
 4.Insert the admin credentials: <br>
 
- db.admins.insert({ <br>
+**db.admins.insert({ <br>
      adminId: "admin@gmail.com", <br>
      password: "12345", <br>
      role: "admin" <br>
- }) <br>
+ })** <br>
 
 Make sure to change these credentials after the first login for security purposes.
 
@@ -63,6 +64,7 @@ Start the backend server:
  __npm start__
 
 In another terminal, start the React client:
+
 __cd client__
 
 __npm start__

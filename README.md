@@ -30,6 +30,7 @@ __npm install__
 __*Navigate to the client directory and install React dependencies:*__
 
 __cd client__ 
+
 __npm install__
 
 **Database Setup**

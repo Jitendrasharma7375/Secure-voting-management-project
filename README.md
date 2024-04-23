@@ -36,16 +36,16 @@ __npm install__
 
 __*You need to manually add the Admin credentials to the MongoDB database. Use the following steps to set up your initial admin user.*__
 
-__*1.Start MongoDB if it's not already running:*__  
+__*1. Start MongoDB if it's not already running:*__  
   __mongod__  
   
-__*2.Open another terminal and type:*__  
+__*2. Open another terminal and type:*__  
   __mongo__  
   
-__*3.Use your database:*__  
+__*3. Use your database:*__  
 __use Secure-voting-management-system__   
 
-__*4.Insert the admin credentials:*__  
+__*4. Insert the admin credentials:*__  
 **db.admins.insert({  
      adminId: "admin@gmail.com",  
      password: "12345",  

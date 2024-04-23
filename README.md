@@ -24,23 +24,28 @@ __git clone https://github.com/jitendrasharma7375/secure-voting-management-syste
 
 __cd secure-voting-management-system__ <br>
 
-Install the required npm packages:
-__npm install__
+Install the required npm packages:<br>
+__npm install__ 
 
 **Navigate to the client directory and install React dependencies:**
-__cd client__
+__cd client__<br>
 __npm install__
 
 **Database Setup**
+
 You need to manually add the Admin credentials to the MongoDB database. Use the following steps to set up your initial admin user.
 
 1.Start MongoDB if it's not already running: <br>
 __mongod__
+
 2.Open another terminal and type: <br>
 __mongo__
+
 3.Use your database: <br>
 **use secure-voting-management-system**
+
 4.Insert the admin credentials: <br>
+
  db.admins.insert({ <br>
      adminId: "admin@gmail.com", <br>
      password: "12345", <br>
@@ -54,24 +59,29 @@ Make sure to change these credentials after the first login for security purpose
 Start the backend server:
 
  __cd ..  # If you are in the client directory__
+ 
  __npm start__
 
 In another terminal, start the React client:
 __cd client__
+
 __npm start__
 
 ## Your app should now be running on http://localhost:3000.
- __Usage__
+
+## Usage
 1.Open your browser and go to **http://localhost:3000.**
 
 2.Log in using the admin credentials provided in the database setup:
 
 __Username: admin@gmail.com__
+
 __Password: 12345__
 
 3.After logging in, change your password immediately for security purposes.
 
 ## Security
+
 This application implements basic security features. However, when deploying publicly, consider the following enhancements:
 
 - __Implement HTTPS.__

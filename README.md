@@ -32,7 +32,7 @@ __*Navigate to the client directory and install React dependencies:*__
 __cd client__   
 __npm install__
 
-**Database Setup**
+## Database Setup
 
 __*You need to manually add the Admin credentials to the MongoDB database. Use the following steps to set up your initial admin user.*__
 

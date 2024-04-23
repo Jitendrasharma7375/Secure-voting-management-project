@@ -45,12 +45,12 @@ __*2.Open another terminal and type:*__ <br>
 __*3.Use your database:*__ <br>
 **use secure-voting-management-system**
 
-__*4.Insert the admin credentials:*__ <br>
-**db.admins.insert({ <br>
-     adminId: "admin@gmail.com", <br>
-     password: "12345", <br>
-     role: "admin" <br>
- })** <br>
+__*4.Insert the admin credentials:*__  
+**db.admins.insert({  
+     adminId: "admin@gmail.com",  
+     password: "12345",  
+     role: "admin"  
+ })**   
  
 Make sure to change these credentials after the first login for security purposes.
 

@@ -4,10 +4,10 @@ This project is a Secure Voting Management System built with the MERN stack (Mon
 
 ## Features
 
-- **Secure Login/Logout**: Admin and voter authentication
-- **Dashboard**: Real-time voting analytics
-- **Vote Management**: Admins can create, modify, and delete voting polls
-- **User Management**: Admins can manage voter accounts
+- **Secure Login/Logout**: Admin and voter authentication.
+- **Dashboard**: Real-time voting analytics.
+- **Vote Management**: Admins can create, modify, and delete voting polls.
+- **User Management**: Admins can manage voter accounts.
 
 ## Prerequisites
 
@@ -21,10 +21,10 @@ Before you begin, ensure you have the following installed:
 Clone the repository to your local machine:
 
 git clone https://github.com/jitendrasharma7375/secure-voting-management-system.git
-cd secure-voting-management-system 
+cd secure-voting-management-system
 
-## Install the required npm packages:
-__npm install__
+Install the required npm packages:
+npm install
 
 **Navigate to the client directory and install React dependencies:**
 __cd client__

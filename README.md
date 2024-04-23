@@ -38,51 +38,59 @@ mongod
 2.Open another terminal and type:
 mongo
 3.Use your database:
-use secure-voting-management-system
+
+## use secure-voting-management-system
+
 4.Insert the admin credentials:
-db.admins.insert({
+
+**db.admins.insert({
   adminId: "admin@gmsil.com",
   password: "12345",
   role: "admin"
-})
+})**
+
 Make sure to change these credentials after the first login for security purposes.
 
 **Running the Application**
+
 Start the backend server:
-cd ..  # If you are in the client directory
-npm start
+
+**cd ..  # If you are in the client directory
+npm start**
 
 In another terminal, start the React client:
-cd client
-npm start
+
+**cd client
+npm start**
+
 ## Your app should now be running on http://localhost:3000.
 ## Usage
 1.Open your browser and go to **http://localhost:3000.**
 2.Log in using the admin credentials provided in the database setup:
 
-Username: admin@gmail.com
-Password: 12345
--
+**Username: admin@gmail.com
+Password: 12345**
+
 3.After logging in, change your password immediately for security purposes.
 
 ## Security
 This application implements basic security features. However, when deploying publicly, consider the following enhancements:
 
--Implement HTTPS.
--Use environment variables for sensitive data like database credentials and admin passwords.
--Consider more robust authentication mechanisms, such as OAuth or JWT with token refresh capabilities.
--
+-**Implement HTTPS.**
+-**Use environment variables for sensitive data like database credentials and admin passwords.**
+-**Consider more robust authentication mechanisms, such as OAuth or JWT with token refresh capabilities.**
+
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request.
 
 ## Developed By
-Jitendra Sharma
-Hitesh Natha
-Parul Sahu
-Mohit Yadav
-Stuti Rani
--
+-**Jitendra Sharma**
+-**Hitesh Natha**
+-**Parul Sahu**
+-**Mohit Yadav**
+-**Stuti Rani**
+
 
 
 

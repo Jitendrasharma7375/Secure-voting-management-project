@@ -22,7 +22,6 @@ Clone the repository to your local machine:
 
 __git clone https://github.com/jitendrasharma7375/secure-voting-management-system.git__ <br>
 __cd secure-voting-management-system__ <br>
-
 Install the required npm packages:<br>
 __npm install__ 
 
@@ -45,13 +44,11 @@ You need to manually add the Admin credentials to the MongoDB database. Use the 
 **use secure-voting-management-system**
 
 4.Insert the admin credentials: <br>
-
 **db.admins.insert({ <br>
      adminId: "admin@gmail.com", <br>
      password: "12345", <br>
      role: "admin" <br>
  })** <br>
-
 Make sure to change these credentials after the first login for security purposes.
 
 ## Running the Application**

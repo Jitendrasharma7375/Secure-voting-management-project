@@ -22,6 +22,7 @@ Clone the repository to your local machine:
 
 __git clone https://github.com/jitendrasharma7375/secure-voting-management-system.git__ <br>
 __cd secure-voting-management-system__ <br>
+
 Install the required npm packages:<br>
 __npm install__ 
 

@@ -62,6 +62,7 @@ __npm start__
 ## Your app should now be running on http://localhost:3000.
  __Usage__
 1.Open your browser and go to **http://localhost:3000.**
+
 2.Log in using the admin credentials provided in the database setup:
 
 __Username: admin@gmail.com__
@@ -81,11 +82,11 @@ This application implements basic security features. However, when deploying pub
 Contributions are welcome! Please feel free to submit a pull request.
 
 ## Developed By
-__*Jitendra Sharma*__
-__*Hitesh Natha*__
-__*Parul Sahu*__
-__*Mohit Yadav*__
-__*Stuti Rani*__
+- __*Jitendra Sharma*__
+- __*Hitesh Natha*__
+- __*Parul Sahu*__
+- __*Mohit Yadav*__
+- __*Stuti Rani*__
 
 
 
